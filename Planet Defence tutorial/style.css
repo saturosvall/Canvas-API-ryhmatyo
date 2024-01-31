@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+}
+#canvas1 {
+    border: 3px solid black;
+    background: url("img/background.png");
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
