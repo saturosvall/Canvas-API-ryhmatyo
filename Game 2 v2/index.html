@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game 2 - Object Pool Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="canvas1"></canvas>
+    <div class="hidden">
+      <!-- Treats -->
+      <img src="./assets/asteroid.png" id="asteroid" alt="asteroid" />
+      <img
+        src="./assets/silly.png"
+        id="alien1"
+        alt="silly alien"
+        class="alienTarget"
+      />
+      <img
+        src="./assets/happy.png"
+        id="alien2"
+        alt="happy alien"
+        class="alienTarget"
+      />
+      <img
+        src="./assets/sad.png"
+        id="alien3"
+        alt="sad alien"
+        class="alienTarget"
+      />
+
+      <!-- Animations -->
+      <img src="./assets/explosions.png" id="explosions" alt="explosions" />
+    </div>
+
+    <!-- Sounds -->
+    <audio src="./assets/explosion1.wav" id="explosion1"></audio>
+    <audio src="./assets/explosion2.wav" id="explosion2"></audio>
+    <audio src="./assets/explosion3.wav" id="explosion3"></audio>
+    <audio src="./assets/explosion4.wav" id="explosion4"></audio>
+    <audio src="./assets/explosion5.wav" id="explosion5"></audio>
+    <audio src="./assets/explosion6.wav" id="explosion6"></audio>
+
+    <script src="main.js"></script>
+  </body>
+</html>

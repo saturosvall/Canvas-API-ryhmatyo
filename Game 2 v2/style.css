@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#canvas1 {
+  border: 5px solid black;
+  background: url("./assets/bg21.png");
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  font-family: "Bangers", cursive;
+}
+.alienTarget {
+  height: 64px;
+  width: 64px;
+  position: absolute;
+  transition: 0.25s;
+  animation: animateTarget 10s infinite;
+}
+
+@keyframes animateTarget {
+  to {
+    transform: translateY(-200px) rotate(90deg);
+  }
+}
+.hidden {
+  display: none;
+}
