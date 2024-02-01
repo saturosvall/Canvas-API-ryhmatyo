@@ -40,7 +40,7 @@ window.addEventListener('load', function () {
             this.image = document.getElementById('asteroid');
             this.spriteWidth = 150;
             this.spriteHeight = 155;
-            this.speed = Math.random() * 1.5 + 0.2;// change to 6.5 + 2; // random speed fps
+            this.speed = Math.random() * 1.5 + 0.2;// 6.5 + 2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
@@ -105,7 +105,7 @@ window.addEventListener('load', function () {
             this.image = document.getElementById(this.aliens[this.randomImageId]);
             this.spriteWidth = 64;
             this.spriteHeight = 64;
-            this.speed = Math.random() * 1.5 + 0.2; // random speed fps
+            this.speed = Math.random() * 1.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
 
 
