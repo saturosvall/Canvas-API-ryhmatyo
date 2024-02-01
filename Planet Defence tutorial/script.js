@@ -192,7 +192,17 @@ class Enemy {
         }
     }
 }
-
+class Monster extends Enemy {
+    constructor(game) {
+        super(game);
+        this.image = document.getElementById('monster'); // test pic
+        this.frameX = 0;
+        this.frameY = Math.floor(Math.random() * 4);
+        this.maxFrame = 7; //how many pics in a row
+        this.lives = 1;
+        this.maxLives = this.lives;
+    }
+}
 class Asteroid extends Enemy {
     constructor(game) {
         super(game);
@@ -379,6 +389,8 @@ class Game {
                 this.enemyPool.push(new Asteroid(this));
             } else if (randomNumber < 0.5) {
                 this.enemyPool.push(new Beetlemorph(this));
+            } else if (randomNumber < 0.75) {
+                this.enemyPool.push(new Monster(this));
             } else {
                 this.enemyPool.push(new Lobstermorph(this));
         }
