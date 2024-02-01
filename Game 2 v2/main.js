@@ -399,7 +399,7 @@ window.addEventListener('load', function () {
     // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
-// Popping issue
+
 // Creating an array to randomly select an alien
 //  Aliens spawn randomly and less frequent than meteorites and steroids
 // Collecting an alien add special score or Time
