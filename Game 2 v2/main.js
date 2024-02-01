@@ -5,8 +5,31 @@ window.addEventListener('load', function () {
     canvas.height = 720;
     ctx.strokeStyle = 'white'; // Overriding the default black strokeStyle
     ctx.lineWidth = 3; // Overriding the default lineWidth
-    ctx.font = '35px Bangers';
-    ctx.fillStyle = 'white';
+
+    // Class to handle the planet boarder
+    class Planet {
+        constructor(game) {
+            this.game = game;
+            this.x = -260;
+            this.y = 380;
+            this.radius = 420;
+            this.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
+            this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'
+        }
+        draw(context) {
+            // drawing the half circle boarder of the planet
+            context.save();
+            context.beginPath();
+            context.arc(this.x, this.y, this.radius, -1, 1, false);
+            context.fillStyle = this.sphereColor;
+            context.fill();
+            // Setting the border color
+            context.strokeStyle = this.borderColor;
+            context.lineWidth = 8;
+            context.stroke();
+            context.restore();
+        }
+    }
 
     class Asteroid {
         constructor(game) {
@@ -15,10 +38,9 @@ window.addEventListener('load', function () {
             this.x = this.game.width + this.radius; // -this.radius to start L2R  // this.game.width for start from right to left. -radius so image don't popup
             this.y = Math.random() * this.game.height;
             this.image = document.getElementById('asteroid');
-            this.border = 100; // to be set as planet border
             this.spriteWidth = 150;
             this.spriteHeight = 155;
-            this.speed = Math.random() * 1.5 + 2; // random speed from 2 to 7 fps
+            this.speed = Math.random() * 1.5 + 0.2;// change to 6.5 + 2; // random speed fps
             this.free = true; // property or flag to mark as active or not
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
@@ -47,11 +69,16 @@ window.addEventListener('load', function () {
                 this.angle += this.va;
                 this.x -= this.speed; // to move to the right on the horizontal x axis change to -= to move from left
                 // if asteroid x > game width reset change to <0 for right2left
-                if (this.x < this.border) {
+
+                // Check for collision between Asteroid and Planet
+                if (this.game.checkCircleCollision(this, this.game.planet)) {
+                    this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
+                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
+
                     this.reset();
                     const explosion = this.game.getExplosion();
                     if (explosion) explosion.start(this.x, this.y, -this.speed);
-
+                    this.game.gameOver = true;
                 }
             }
         }
@@ -76,10 +103,9 @@ window.addEventListener('load', function () {
             this.aliens = ['alien1', 'alien2', 'alien3'];
             this.randomImageId = Math.floor(Math.random() * 3);
             this.image = document.getElementById(this.aliens[this.randomImageId]);
-            this.border = 100; // to be set as planet border
             this.spriteWidth = 64;
             this.spriteHeight = 64;
-            this.speed = Math.random() * 1.5 + 0.2; // random speed from 2 to 7 fps
+            this.speed = Math.random() * 1.5 + 0.2; // random speed fps
             this.free = true; // property or flag to mark as active or not
 
 
@@ -104,7 +130,9 @@ window.addEventListener('load', function () {
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
                 // if alien x > game width reset change to <0 for right2left
-                if (this.x < this.border) {
+
+                // *** check for colision between Planet and Alien ****
+                if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
                     // To be changed with sprite sheet for capturing
                     const explosion = this.game.getExplosion();
@@ -184,70 +212,75 @@ window.addEventListener('load', function () {
             this.play();
         }
     }
-    // // Will draw score, timer and other information that will display for the player
-    // class UI {
-    //     constructor(game) {
-    //         this.game = game;
-    //         this.fontSize = 25;
-    //         this.fontFamily = 'Bangers';
-    //         this.color = 'white';
-    //     }
-    //     draw(context) {
-    //         context.save();
-    //         context.fillStyle = this.color;
-    //         context.shadowOffsetX = 2;
-    //         context.shadowOffsetY = 2;
-    //         context.shadowColor = 'black';
-    //         context.font = this.fontSize + 'px ' + this.fontFamily;
-    //         // Score
-    //         context.fillText('Score: ' + this.game.score, 20, 40);
-    //         // Timer
-    //         const formattedTime = (this.game.gameTime * 0.001).toFixed(1); // toFixed method formats a number using fixed point notation (after decimal point)
-    //         context.fillText('Timer: ' + formattedTime, 20, 100);
-    //         // Game over message
-    //         if (this.game.gameOver) {
-    //             context.textAlign = 'center';
-    //             let message1;
-    //             let message2;
-    //             if (this.game.score > this.game.winningScore) {
-    //                 message1 = 'You Win!';
-    //                 message2 = 'Well done!';
-    //             } else {
-    //                 message1 = 'Mission Failed!';
-    //                 message2 = 'This planet is lost!';
-    //             }
-    //             context.font = '100px ' + this.fontFamily;
-    //             context.fillText(message1, this.game.width * 0.5, this.game.height * 0.5 - 20);
-    //             context.font = '25px ' + this.fontFamily;
-    //             context.fillText(message2, this.game.width * 0.5, this.game.height * 0.5 + 20);
-    //         }
-    //         // ammo
-    //         if (this.game.player.powerUp) context.fillStyle = '#ffffbd';
-    //         for (let i = 0; i < this.game.ammo; i++) {
-    //             context.fillRect(20 + 5 * i, 50, 3, 20);
-    //         }
-    //         context.restore();
-    //     }
-    // }
+    // Will draw score, timer and other information that will display for the player
+    class UI {
+        constructor(game) {
+            this.game = game;
+            this.fontSize = 35;
+            this.fontFamily = 'Bangers';
+            this.color = 'white';
+        }
+        draw(context) {
+            context.save();
+            context.fillStyle = this.color;
+            context.shadowOffsetX = 2;
+            context.shadowOffsetY = 2;
+            context.shadowColor = 'black';
+            context.font = this.fontSize + 'px ' + this.fontFamily;
+            // Score
+            context.fillText('Score: ' + this.game.score, 30, 40);
+
+            // Timer
+            const formattedTime = (this.game.gameTime * 0.001).toFixed(1); // toFixed method formats a number using fixed point notation (after decimal point)
+            context.fillText('Timer: ' + formattedTime, 20, 80);
+
+            // Game over message
+            if (this.game.gameOver) {
+                context.textAlign = 'center';
+                let message1;
+                let message2;
+                if (this.game.score >= this.game.winningScore) {
+                    message1 = 'You Win!';
+                    message2 = 'Well done! An autokorjaamo is on the way to fix you up!!';
+                } else {
+                    message1 = 'Mission Failed!';
+                    message2 = 'This planet is lost!';
+                }
+                context.font = '100px ' + this.fontFamily;
+                context.fillText(message1, this.game.width * 0.5, this.game.height * 0.5 - 20);
+                context.font = '35px ' + this.fontFamily;
+                context.fillText(message2, this.game.width * 0.5, this.game.height * 0.5 + 20);
+            }
+            context.restore();
+        }
+    }
 
     class Game {
         constructor(width, height) {
             this.width = width;
             this.height = height;
+
+            this.planet = new Planet(); // Creating an instence of planet
+            this.gameOver = false;
+            this.ui = new UI(this);
             this.asteroidPool = [];
-            this.maxAsteroids = 10;
+            this.maxAsteroids = 15;
             this.asteroidTimer = 0;  // Helper variable to add new asteroid
-            this.asteroidInterval = 1000; // Helper variable to add new asteroid evey millisecond less is faster for harder levels
+            this.asteroidInterval = 800; // Helper variable to add new asteroid evey millisecond less is faster for harder levels
             this.createAsteroidPool(); // when a new Game is initiated it initiate asteroidPool elements
 
             this.alienPool = [];
-            this.maxAliens = 3; // Maximum aliens spawn
+            this.maxAliens = 5; // Maximum aliens spawn
             this.alienTimer = 0;  // Helper variable to add new alien
             this.alienInterval = 1800; // Helper variable to add new alien evey millisecond more is slower for harder levels
             this.createAlienPool(); // when a new Game is initiated it initiate asteroidPool elements
 
+            this.gameOver = false;
             this.score = 0;
-            this.maxScore = 10;
+            this.winningScore = 80;
+            this.gameTime = 0;
+            this.timeLimit = 30000;
+
 
             this.mouse = {
                 x: 0,
@@ -282,20 +315,21 @@ window.addEventListener('load', function () {
                         if (explosion) explosion.start(asteroid.x, asteroid.y, asteroid.speed * 0.4);
                         // remove the asteroid
                         asteroid.reset();
-                        if (this.score < this.maxScore) this.score++; // Add score for mouse to asteroid (could be special score)
+                        if (this.score < this.winningScore) this.score++; // Add score for mouse to asteroid (could be special score)
                     }
                 })
                 // Cycle through alien array
                 this.alienPool.forEach(alien => {
                     // if already out & collide with mouse
                     if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
+                        console.log('Alien collided with mouse');
                         // Helper temporary variable
                         const explosion = this.getExplosion();
                         // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
                         if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
                         // remove the alien
                         alien.reset();
-                        if (this.score < this.maxScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
+                        if (this.score < this.winningScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
                     }
                 })
             });
@@ -345,6 +379,9 @@ window.addEventListener('load', function () {
             return distance < sumOfRadii; // will return true if objects are overlapping else false
         }
         render(context, deltaTime) {
+            // Drawing the planet
+            this.planet.draw(context);
+
             // create asteroids periodically
             if (this.asteroidTimer > this.asteroidInterval) {
                 // Add new asteriod from pool
@@ -376,13 +413,11 @@ window.addEventListener('load', function () {
                 explosion.draw(context);
                 explosion.update(deltaTime);
             });
-            context.fillText('Score: ' + this.score, 20, 35);
-            if (this.score >= this.maxScore) {
-                context.save(); // To apply the change only on winning message
-                context.textAlign = 'center';
-                context.fillText('You win, final score: ' + this.score, this.width * 0.5, this.height * 0.5)
-                context.restore();
-            }
+            // Drawing the UI
+            if (!this.gameOver) this.gameTime += deltaTime;
+            else if (this.gameTime > this.timeLimit || this.score >= this.winningScore) this.gameOver = true;
+
+            this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
         }
     }
 
@@ -396,11 +431,11 @@ window.addEventListener('load', function () {
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
-    // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
+    animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
 
-// Creating an array to randomly select an alien
+// Adding a protective sphere / border : maybe lives for planet ****
 //  Aliens spawn randomly and less frequent than meteorites and steroids
 // Collecting an alien add special score or Time
 // Shouting an alien deduct score or time
