@@ -334,32 +334,35 @@ window.addEventListener('load', function () {
                 this.mouse.x = e.offsetX;
                 this.mouse.y = e.offsetY;
 
-                // Cycle through asteroid array
-                this.asteroidPool.forEach(asteroid => {
-                    // if already out & collide with mouse
-                    if (!asteroid.free && this.checkCircleCollision(asteroid, this.mouse)) {
-                        // Helper temporary variable
-                        const explosion = this.getExplosion();
-                        // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
-                        if (explosion) explosion.start(asteroid.x, asteroid.y, asteroid.speed * 0.4);
-                        // remove the asteroid
-                        asteroid.reset();
-                        if (this.score < this.winningScore) this.score++; // Add score for mouse to asteroid (could be special score)
-                    }
-                })
-                // Cycle through alien array
-                this.alienPool.forEach(alien => {
-                    // if already out & collide with mouse
-                    if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
-                        // Helper temporary variable
-                        const disappearance = this.getDisappearance();
-                        // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
-                        if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
-                        // remove the alien
-                        alien.reset();
-                        if (this.score < this.winningScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
-                    }
-                })
+                if (!this.gameOver) {
+                    // Cycle through asteroid array
+                    this.asteroidPool.forEach(asteroid => {
+                        // if already out & collide with mouse
+                        if (!asteroid.free && this.checkCircleCollision(asteroid, this.mouse)) {
+                            // Helper temporary variable
+                            const explosion = this.getExplosion();
+                            // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
+                            if (explosion) explosion.start(asteroid.x, asteroid.y, asteroid.speed * 0.4);
+                            // remove the asteroid
+                            asteroid.reset();
+                            if (this.score < this.winningScore) this.score++; // Add score for mouse to asteroid (could be special score)
+                        }
+                    })
+                    // Cycle through alien array
+                    this.alienPool.forEach(alien => {
+                        // if already out & collide with mouse
+                        if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
+                            // Helper temporary variable
+                            const disappearance = this.getDisappearance();
+                            // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
+                            if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
+                            // remove the alien
+                            alien.reset();
+                            if (this.score < this.winningScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
+                        }
+                    })
+                }
+
             });
         }
         createAsteroidPool() {
@@ -461,7 +464,7 @@ window.addEventListener('load', function () {
             if (!this.gameOver) this.gameTime += deltaTime;
             if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
                 this.gameOver = true;
-                // Stop spawns of Asteroids and Aliens
+                // Stop spawns of Asteroids and Aliens ****
             }
 
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
