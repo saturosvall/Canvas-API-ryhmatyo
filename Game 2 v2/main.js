@@ -50,12 +50,14 @@ window.addEventListener('load', function () {
         draw(context) {
             // Only draw if free space
             if (!this.free) {
-                // // the white circle asteroid border
-                // context.beginPath();
-                // context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                // context.stroke();
-                // the steroid
                 context.save();
+                // the white circle asteroid border for debug
+                if (this.game.debug) {
+                    context.beginPath();
+                    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    context.stroke();
+                }
+                // The asteroid 
                 context.translate(this.x, this.y);
                 context.rotate(this.angle);
                 context.drawImage(this.image, -this.spriteWidth * 0.5, -this.spriteHeight * 0.5, this.spriteWidth, this.spriteHeight);
@@ -114,14 +116,16 @@ window.addEventListener('load', function () {
         draw(context) {
             // Only draw if free space
             if (!this.free) {
-                // // the white circle, alien border
-                // context.beginPath();
-                // context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                // context.stroke();
-                // the alien
-                // context.save();
+                context.save();
+                // the white circle, alien border for debug mode
+                if (this.game.debug) {
+                    context.beginPath();
+                    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    context.stroke();
+                };
+                // the alien figurine
                 context.drawImage(this.image, this.x - this.spriteWidth * 0.5, this.y - this.spriteHeight * 0.5, this.spriteWidth, this.spriteHeight);
-                // context.restore();
+                context.restore();
             }
         }
         // Method to update the object
@@ -325,8 +329,15 @@ window.addEventListener('load', function () {
             this.disappear3 = document.getElementById('disappear3');
             this.disappearSounds = [this.disappear1, this.disappear2, this.disappear3];
             this.disappearancePool = [];
-            this.maxDisappearance = 20;
+            this.maxDisappearance = 10;
             this.createDisappearancePool();
+
+            this.debug = false;
+
+            window.addEventListener('keyup', e => {
+                if (e.key === 'd') this.debug = !this.debug;
+                // console.log(this.debug);
+            });
 
             window.addEventListener('click', e => {
                 // Add explosions at a click coordinates
@@ -485,13 +496,14 @@ window.addEventListener('load', function () {
 });
 
 
-// Adding a protective sphere / border : maybe lives for planet ****
+// Adding a protective sphere that activate if gameOver and score > maxScore
+// The planet border : maybe lives for planet
 //  Aliens spawn randomly and less frequent than meteorites and steroids
 // Collecting an alien add special score or Time
 // Shouting an alien deduct score or time
+// Adding Player/Robot
 
-// Adding grab sprite sheet for collecting aliens
-
-// Adding sounds and sound array for collecting aliens (get over here, gotcha, where the hell you think you're going, u little ugly thing, come baby you're safe now, aliens sounds)
-
-// Creating a debug mode 
+// Creating a debug mode ** done
+// Adding grab sprite sheet for collecting aliens ** done
+// Adding random sounds and sound array for collecting aliens (aliens sounds) ** done
+// if one asteroid hits the planet Game over ** done
