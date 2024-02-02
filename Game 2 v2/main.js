@@ -228,7 +228,8 @@ window.addEventListener('load', function () {
         // Overriding start method
         start(x, y, speed) {
             this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
-            this.play(); // **** Issue to fix too many interferences ****
+            // **** Issue to fix too many interferences ****
+            this.sound.play();
             super.start(x, y, speed);
         }
     }
@@ -322,9 +323,7 @@ window.addEventListener('load', function () {
             this.disappear1 = document.getElementById('disappear1');
             this.disappear2 = document.getElementById('disappear2');
             this.disappear3 = document.getElementById('disappear3');
-            this.disappear4 = document.getElementById('disappear4');
-            this.disappear5 = document.getElementById('disappear5');
-            this.disappearSounds = [this.disappear1, this.disappear2, this.disappear3, this.disappear4, this.disappear5];
+            this.disappearSounds = [this.disappear1, this.disappear2, this.disappear3];
             this.disappearancePool = [];
             this.maxDisappearance = 20;
             this.createDisappearancePool();
