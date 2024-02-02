@@ -212,6 +212,25 @@ window.addEventListener('load', function () {
             this.play();
         }
     }
+
+    // Will handle the disappearance explosion of aliens
+    class DisappearanceExplosion extends Explosion {
+        constructor(game) {
+            super(game);
+            // Custom properties specific for disappearance effect
+            this.image = document.getElementById('disappear');
+            this.spriteWidth = 79.5;
+            this.spriteHeight = 80;
+            this.frameY = Math.floor(Math.random() * 4);
+            this.maxFrame = 7;
+            this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
+        }
+        // Overriding start method
+        start(x, y, speed) {
+            this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
+            super.start(x, y, speed);
+        }
+    }
     // Will draw score, timer and other information that will display for the player
     class UI {
         constructor(game) {
@@ -241,7 +260,7 @@ window.addEventListener('load', function () {
                 let message2;
                 if (this.game.score >= this.game.winningScore) {
                     message1 = 'You Win!';
-                    message2 = 'Well done! An autokorjaamo is on the way to fix you up!!';
+                    message2 = 'Well done! An autokorjaaja is on the way to fix you up!!';
                 } else {
                     message1 = 'Mission Failed!';
                     message2 = 'This planet is lost!';
@@ -299,6 +318,16 @@ window.addEventListener('load', function () {
             this.maxExplosions = 20;
             this.createExplosionPool();
 
+            this.disappear1 = document.getElementById('disappear1');
+            this.disappear2 = document.getElementById('disappear2');
+            this.disappear3 = document.getElementById('disappear3');
+            this.disappear4 = document.getElementById('disappear4');
+            this.disappear5 = document.getElementById('disappear5');
+            this.disappearSounds = [this.disappear1, this.disappear2, this.disappear3, this.disappear4, this.disappear5];
+            this.disappearancePool = [];
+            this.maxDisappearance = 20;
+            this.createDisappearancePool();
+
             window.addEventListener('click', e => {
                 // Add explosions at a click coordinates
                 // console.log(e); // since canvas isn't full screen we need to use offsetX and offsetY
@@ -322,11 +351,10 @@ window.addEventListener('load', function () {
                 this.alienPool.forEach(alien => {
                     // if already out & collide with mouse
                     if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
-                        console.log('Alien collided with mouse');
                         // Helper temporary variable
-                        const explosion = this.getExplosion();
+                        const disappearance = this.getDisappearance();
                         // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
-                        if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
+                        if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
                         // remove the alien
                         alien.reset();
                         if (this.score < this.winningScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
@@ -349,6 +377,11 @@ window.addEventListener('load', function () {
                 this.explosionPool.push(new Explosion(this));
             }
         }
+        createDisappearancePool() {
+            for (let i = 0; i < this.maxDisappearance; i++) {
+                this.disappearancePool.push(new DisappearanceExplosion(this));
+            }
+        }
         getAsteroid() {
             for (let i = 0; i < this.asteroidPool.length; i++) {
                 if (this.asteroidPool[i].free) {
@@ -367,6 +400,13 @@ window.addEventListener('load', function () {
             for (let i = 0; i < this.explosionPool.length; i++) {
                 if (this.explosionPool[i].free) {
                     return this.explosionPool[i];
+                }
+            }
+        }
+        getDisappearance() {
+            for (let i = 0; i < this.disappearancePool.length; i++) {
+                if (this.disappearancePool[i].free) {
+                    return this.disappearancePool[i];
                 }
             }
         }
@@ -413,9 +453,16 @@ window.addEventListener('load', function () {
                 explosion.draw(context);
                 explosion.update(deltaTime);
             });
+            this.disappearancePool.forEach(disappearance => {
+                disappearance.draw(context);
+                disappearance.update(deltaTime);
+            });
             // Drawing the UI
             if (!this.gameOver) this.gameTime += deltaTime;
-            else if (this.gameTime > this.timeLimit || this.score >= this.winningScore) this.gameOver = true;
+            if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
+                this.gameOver = true;
+                // Stop spawns of Asteroids and Aliens
+            }
 
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
         }
