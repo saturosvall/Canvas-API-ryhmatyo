@@ -228,6 +228,7 @@ window.addEventListener('load', function () {
         // Overriding start method
         start(x, y, speed) {
             this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
+            this.play(); // **** Issue to fix too many interferences ****
             super.start(x, y, speed);
         }
     }
