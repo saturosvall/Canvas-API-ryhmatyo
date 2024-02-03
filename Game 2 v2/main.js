@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     ctx.strokeStyle = 'white'; // Overriding the default black strokeStyle
     ctx.lineWidth = 3; // Overriding the default lineWidth
 
-    // Class to handle the planet boarder
+    // Class to handle the planet boarder and Generated Shield
     class Planet {
         constructor(game) {
             this.game = game;
@@ -14,7 +14,10 @@ window.addEventListener('load', function () {
             this.y = 380;
             this.radius = 420;
             this.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
-            this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'
+            this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'; // initial sphere color
+            // this.shieldBorderColor = 'hsla(241, 48%, 40%, 0.596)'; // initial shield color
+            // this.shieldSphereColor = 'hsla(125, 46%, 38%, 0.5)'; // initial shield color
+            // this.shieldActive = true;
         }
         draw(context) {
             // drawing the half circle boarder of the planet
@@ -28,7 +31,28 @@ window.addEventListener('load', function () {
             context.lineWidth = 8;
             context.stroke();
             context.restore();
+            // draw sield if active
+            // if (this.shieldActive) this.drawShield(context);
         }
+        // drawShield(context) {
+        //     // drawing the shield
+        //     context.save();
+        //     context.beginPath();
+        //     context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false);
+        //     context.fillStyle = this.sphereColor;
+        //     context.fill();
+        //     // Setting the border color
+        //     context.strokeStyle = this.borderColor;
+        //     context.lineWidth = 8;
+        //     context.stroke();
+        //     context.restore();
+        // }
+        // shieldOn() {
+        //     this.shieldActive = true;
+        // }
+        // shieldOff() {
+        //     this.shieldActive = false;
+        // }
     }
 
     class Asteroid {
@@ -265,8 +289,10 @@ window.addEventListener('load', function () {
                 let message1;
                 let message2;
                 if (this.game.score >= this.game.winningScore) {
-                    message1 = 'You Win!';
-                    message2 = 'Well done! An autokorjaaja is on the way to fix you up!!';
+                    // Where should the Planet border expands (we could call Planet shield activated when winning the game)
+                    this.game.planet.radius += 2;
+                    message1 = 'You Won!';
+                    message2 = 'The Planet Shield is now active!!';
                 } else {
                     message1 = 'Mission Failed!';
                     message2 = 'This planet is lost!';
@@ -285,7 +311,7 @@ window.addEventListener('load', function () {
             this.width = width;
             this.height = height;
 
-            this.planet = new Planet(); // Creating an instence of planet
+            this.planet = new Planet(this); // Creating an instence of planet
             this.gameOver = false;
             this.ui = new UI(this);
             this.asteroidPool = [];
@@ -300,7 +326,6 @@ window.addEventListener('load', function () {
             this.alienInterval = 1800; // Helper variable to add new alien evey millisecond more is slower for harder levels
             this.createAlienPool(); // when a new Game is initiated it initiate asteroidPool elements
 
-            this.gameOver = false;
             this.score = 0;
             this.winningScore = 80;
             this.gameTime = 0;
@@ -517,7 +542,6 @@ window.addEventListener('load', function () {
 });
 
 
-// Adding a protective sphere that activate if gameOver and score > maxScore
 // The planet border : maybe lives for planet ???
 //  Aliens spawn randomly and less frequent than meteorites and steroids
 // Adding Player/Robot
@@ -532,3 +556,4 @@ window.addEventListener('load', function () {
 // Adding an event listener for right mouse button click ** done
 // Collecting an alien add special score ** done
 // Shouting an alien deduct score or time ** done
+// Adding a protective sphere (planet border expands) that activate if gameOver and score > maxScore by changing in draw() method in Planet class ---> context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false); ** done
