@@ -340,7 +340,7 @@ window.addEventListener('load', function () {
             });
 
             window.addEventListener('click', e => {
-                // Add explosions at a click coordinates
+                // Add explosions at a click coordinates with the default mouse click (left)
                 // console.log(e); // since canvas isn't full screen we need to use offsetX and offsetY
                 this.mouse.x = e.offsetX;
                 this.mouse.y = e.offsetY;
@@ -356,7 +356,7 @@ window.addEventListener('load', function () {
                             if (explosion) explosion.start(asteroid.x, asteroid.y, asteroid.speed * 0.4);
                             // remove the asteroid
                             asteroid.reset();
-                            if (this.score < this.winningScore) this.score++; // Add score for mouse to asteroid (could be special score)
+                            if (this.score < this.winningScore) this.score++; // Add score for destroying an asteroid (could be special score)
                         }
                     })
                     // Cycle through alien array
@@ -364,16 +364,37 @@ window.addEventListener('load', function () {
                         // if already out & collide with mouse
                         if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
                             // Helper temporary variable
-                            const disappearance = this.getDisappearance();
+                            const explosion = this.getExplosion();
                             // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
-                            if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
+                            if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
                             // remove the alien
                             alien.reset();
-                            if (this.score < this.winningScore) this.score += 10; // Add score for mouse to asteroid (could be special score)
+                            if (this.score < this.winningScore) this.score -= 10; // Add score for mouse to asteroid (could be special score)
                         }
                     })
                 }
 
+            });
+            window.addEventListener('contextmenu', e => {
+                // Handle the right mouse button click
+                e.preventDefault();
+                this.mouse.x = e.offsetX;
+                this.mouse.y = e.offsetY;
+                if (!this.gameOver) {
+                    // Cycle through alien array
+                    this.alienPool.forEach(alien => {
+                        // if already out & collide with mouse
+                        if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
+                            // Helper temporary variable
+                            const disappearance = this.getDisappearance();
+                            // setting capture coordinates to alien and motion to a fraction 0.2 of alien speed
+                            if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
+                            // remove the alien
+                            alien.reset();
+                            if (this.score < this.winningScore) this.score += 10; // Add special score for capturing an alien
+                        }
+                    })
+                }
             });
         }
         createAsteroidPool() {
@@ -497,13 +518,17 @@ window.addEventListener('load', function () {
 
 
 // Adding a protective sphere that activate if gameOver and score > maxScore
-// The planet border : maybe lives for planet
+// The planet border : maybe lives for planet ???
 //  Aliens spawn randomly and less frequent than meteorites and steroids
-// Collecting an alien add special score or Time
-// Shouting an alien deduct score or time
 // Adding Player/Robot
+// Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet, color golden radian transparent for example)
+// Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
+// Adding Play/Pause mode (maybe same technique as debug mode using spaceBar or 'p')
 
-// Creating a debug mode ** done
+// Creating a debug mode trigger by key 'd' ** done
 // Adding grab sprite sheet for collecting aliens ** done
 // Adding random sounds and sound array for collecting aliens (aliens sounds) ** done
 // if one asteroid hits the planet Game over ** done
+// Adding an event listener for right mouse button click ** done
+// Collecting an alien add special score ** done
+// Shouting an alien deduct score or time ** done
