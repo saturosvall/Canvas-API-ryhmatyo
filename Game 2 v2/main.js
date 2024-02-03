@@ -548,6 +548,7 @@ window.addEventListener('load', function () {
 // Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 // Adding Play/Pause mode (maybe same technique as debug mode using spaceBar or 'p')
+// Adjusting speed for all elements and maxScore and maxTime...
 
 // Creating a debug mode trigger by key 'd' ** done
 // Adding grab sprite sheet for collecting aliens ** done
