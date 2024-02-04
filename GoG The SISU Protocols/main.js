@@ -498,8 +498,8 @@ window.addEventListener('load', function () {
             // Drawing the planet
             this.planet.draw(context);
 
-            // create asteroids periodically
-            if (this.asteroidTimer > this.asteroidInterval) {
+            // create asteroids periodically if not game over
+            if (this.asteroidTimer > this.asteroidInterval && !this.gameOver) {
                 // Add new asteriod from pool
                 const asteroid = this.getAsteroid();
                 if (asteroid) asteroid.start();
@@ -507,8 +507,8 @@ window.addEventListener('load', function () {
             } else {
                 this.asteroidTimer += deltaTime;
             }
-            // create alien periodically
-            if (this.alienTimer > this.alienInterval) {
+            // create alien periodically if not game over
+            if (this.alienTimer > this.alienInterval && !this.gameOver) {
                 // Add new alien from pool
                 const alien = this.getAlien();
                 if (alien) alien.start();
@@ -579,3 +579,4 @@ window.addEventListener('load', function () {
 // Shouting an alien deduct score or time ** done
 // Adding a protective sphere (planet border expands) that activate if gameOver and score > maxScore by changing in draw() method in Planet class ---> context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false); ** done
 // Applying a mouvement animation to aliens ** done
+// New Asteroids and Aliens stop being created when game over fixed ** done
