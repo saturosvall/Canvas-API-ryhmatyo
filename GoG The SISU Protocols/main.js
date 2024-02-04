@@ -138,7 +138,9 @@ window.addEventListener('load', function () {
             this.spriteHeight = 64;
             this.speed = Math.random() * 1.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
-            this.alienDescription = '±10/Collectible';
+
+            this.alienDescription = '±10/Collectible'; // Text for debug mode
+            this.mouvementAngle = 0; // initiating the mouvemebt angle for alien
 
 
         }
@@ -165,6 +167,9 @@ window.addEventListener('load', function () {
         }
         // Method to update the object
         update() {
+            // Applying a mouvement animation
+            this.mouvementAngle += 0.1; // how fast up & down
+            this.y = this.y + Math.sin(this.mouvementAngle) * 4; // how much up & down
             // update rotation angle
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
@@ -553,6 +558,7 @@ window.addEventListener('load', function () {
 });
 
 
+// For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
 //  Aliens spawn randomly and less frequent than meteorites and steroids
@@ -570,3 +576,4 @@ window.addEventListener('load', function () {
 // Collecting an alien add special score ** done
 // Shouting an alien deduct score or time ** done
 // Adding a protective sphere (planet border expands) that activate if gameOver and score > maxScore by changing in draw() method in Planet class ---> context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false); ** done
+// Applying a mouvement animation to aliens ** done
