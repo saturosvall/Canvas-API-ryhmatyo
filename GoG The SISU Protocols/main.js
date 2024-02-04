@@ -68,6 +68,7 @@ window.addEventListener('load', function () {
             this.free = true; // property or flag to mark as active or not
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
+            this.asteroidDescription = '+1/Game Over';
 
         }
         // Method to draw the object
@@ -75,12 +76,16 @@ window.addEventListener('load', function () {
             // Only draw if free space
             if (!this.free) {
                 context.save();
-                // the white circle asteroid border for debug
+                // the white circle asteroid border and description for debug
                 if (this.game.debug) {
                     context.beginPath();
                     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     context.stroke();
+                    context.fillStyle = 'hsla(240, 2%, 91%, 0.959)';
+                    context.font = '25px Bangers';
+                    context.fillText(this.asteroidDescription, this.x - this.radius, this.y - this.radius);
                 }
+
                 // The asteroid 
                 context.translate(this.x, this.y);
                 context.rotate(this.angle);
@@ -133,6 +138,7 @@ window.addEventListener('load', function () {
             this.spriteHeight = 64;
             this.speed = Math.random() * 1.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
+            this.alienDescription = '±10/Collectible';
 
 
         }
@@ -141,12 +147,17 @@ window.addEventListener('load', function () {
             // Only draw if free space
             if (!this.free) {
                 context.save();
-                // the white circle, alien border for debug mode
+                // the white circle, alien border and description for debug mode
                 if (this.game.debug) {
                     context.beginPath();
                     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     context.stroke();
+                    // Adding the text fill method
+                    context.fillStyle = 'hsla(240, 2%, 91%, 0.959)';
+                    context.font = '25px Bangers';
+                    context.fillText(this.alienDescription, this.x - this.radius * 2, this.y - this.radius);
                 };
+
                 // the alien figurine
                 context.drawImage(this.image, this.x - this.spriteWidth * 0.5, this.y - this.spriteHeight * 0.5, this.spriteWidth, this.spriteHeight);
                 context.restore();
@@ -291,8 +302,8 @@ window.addEventListener('load', function () {
                 if (this.game.score >= this.game.winningScore) {
                     // Where should the Planet border expands (we could call Planet shield activated when winning the game)
                     this.game.planet.radius += 2;
-                    message1 = 'You Won!';
-                    message2 = 'The Planet Shield is now active!!';
+                    message1 = 'SISU Protocols Succeeded!';
+                    message2 = 'The Planet is Safe and the shield is now active!!';
                 } else {
                     message1 = 'Mission Failed!';
                     message2 = 'This planet is lost!';
@@ -327,11 +338,11 @@ window.addEventListener('load', function () {
             this.createAlienPool(); // when a new Game is initiated it initiate asteroidPool elements
 
             this.score = 0;
-            this.winningScore = 80;
+            this.winningScore = 80; // To set the minimum score to win
             this.gameTime = 0;
-            this.timeLimit = 30000;
+            this.timeLimit = 30000; // To set the maximum time for mission success
 
-
+            // mouse x, y and radius of circle
             this.mouse = {
                 x: 0,
                 y: 0,
@@ -534,7 +545,7 @@ window.addEventListener('load', function () {
     function animate(timeStamp) {
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // method to delete old animation frame drawn on canvas since animation is a loop that keeps drawing so we only see the current and becomes moving/animated objects
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
@@ -542,15 +553,16 @@ window.addEventListener('load', function () {
 });
 
 
+// Cleaning up the code
 // The planet border : maybe lives for planet ???
 //  Aliens spawn randomly and less frequent than meteorites and steroids
 // Adding Player/Robot
-// Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet, color golden radian transparent for example)
+// Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 // Adding Play/Pause mode (maybe same technique as debug mode using spaceBar or 'p')
-// Adjusting speed for all elements and maxScore and maxTime...
 
 // Creating a debug mode trigger by key 'd' ** done
+// Adding description for asteroids and aliens in debug mode ** done
 // Adding grab sprite sheet for collecting aliens ** done
 // Adding random sounds and sound array for collecting aliens (aliens sounds) ** done
 // if one asteroid hits the planet Game over ** done
