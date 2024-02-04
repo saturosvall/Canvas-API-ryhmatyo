@@ -1,7 +1,7 @@
 window.addEventListener('load', function () {
     const canvas = this.document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = 1220;
+    canvas.width = 1280; // **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720
     canvas.height = 720;
     ctx.strokeStyle = 'white'; // Overriding the default black strokeStyle
     ctx.lineWidth = 3; // Overriding the default lineWidth
@@ -11,8 +11,8 @@ window.addEventListener('load', function () {
         constructor(game) {
             this.game = game;
             this.x = -260;
-            this.y = 380;
-            this.radius = 420;
+            this.y = 400;
+            this.radius = 440;
             this.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
             this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'; // initial sphere color
             // this.shieldBorderColor = 'hsla(241, 48%, 40%, 0.596)'; // initial shield color
@@ -558,6 +558,8 @@ window.addEventListener('load', function () {
 });
 
 
+// **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720
+// Add spaceOrk Class and function (takes three hits and give +10 score)
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
