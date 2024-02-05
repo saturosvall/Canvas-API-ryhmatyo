@@ -197,6 +197,78 @@ window.addEventListener('load', function () {
         }
     }
 
+    class SpaceOrk {
+        constructor(game) {
+            this.game = game;
+            this.radius = 65;
+            this.x = this.game.width + this.radius; // -this.radius to start L2R  // this.game.width for start from right to left. -radius so image don't popup
+            this.y = Math.random() * this.game.height;
+            this.orkSprite = document.getElementById('spaceOrk');
+            this.spriteWidth = 256;
+            this.spriteHeight = 256;
+            this.frameX = 0;
+            this.frameY = 0;
+            this.maxFrame = 59;
+            this.speed = Math.random() * 1.5 + 0.2;// 6.5 + 2; // random speed from 2 to 7 fps
+            this.free = true; // property or flag to mark as active or not
+            this.orkDescription = '+10/Game Over';
+
+        }
+        // Method to draw the object
+        draw(context) {
+            // Only draw if free space
+            if (!this.free) {
+                context.save();
+                // The space ork
+                context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5), this.y - (this.spriteHeight * 0.5 + 25), this.spriteWidth, this.spriteHeight);
+
+                // the white circle monster border and description for debug
+                if (this.game.debug) {
+                    context.beginPath();
+                    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    context.stroke();
+                    context.fillStyle = 'hsla(240, 2%, 91%, 0.959)';
+                    context.font = '25px Bangers';
+                    context.fillText(this.orkDescription, this.x - this.radius, this.y - this.radius);
+                }
+                context.restore();
+            }
+        }
+        // Method to update the object
+        update() {
+            // // Sprite animation
+            // if (this.frameX > this.maxFrame) {
+            //     this.frameX = 0;
+            // } else {
+            //     this.frameX++;
+            // }
+            if (!this.free) {
+                this.x -= this.speed;
+
+                // Check for collision between spaceOrk and Planet
+                if (this.game.checkCircleCollision(this, this.game.planet)) {
+                    this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
+                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
+
+                    this.reset();
+                    const explosion = this.game.getExplosion();
+                    if (explosion) explosion.start(this.x, this.y, -this.speed);
+                    this.game.gameOver = true;
+                }
+            }
+        }
+        // method to return ork to the pool
+        reset() {
+            this.free = true;
+        }
+        //  method to start using the ork from the pool
+        start() {
+            this.free = false;
+            this.x = this.game.width + this.radius // -this.radius; // this.game.width for start from right to left
+            this.y = Math.random() * this.game.height; // maybe -this.radius
+        }
+    }
+
     class Explosion {
         constructor(game) {
             this.game = game;
@@ -277,6 +349,28 @@ window.addEventListener('load', function () {
             super.start(x, y, speed);
         }
     }
+
+    // // Will handle the explosion of space orks
+    // class SmokeExplosion extends Explosion {
+    //     constructor(game) {
+    //         super(game);
+    //         // Custom properties specific for smoke explosion effect
+    //         this.image = document.getElementById('disappear');
+    //         this.spriteWidth = 79.5;
+    //         this.spriteHeight = 80;
+    //         this.frameY = Math.floor(Math.random() * 4);
+    //         this.maxFrame = 7;
+    //         this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
+    //     }
+    //     // Overriding start method
+    //     start(x, y, speed) {
+    //         this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
+    //         // **** Issue to fix too many interferences ****
+    //         this.sound.play();
+    //         super.start(x, y, speed);
+    //     }
+    // }
+
     // Will draw score, timer and other information that will display for the player
     class UI {
         constructor(game) {
@@ -330,17 +424,24 @@ window.addEventListener('load', function () {
             this.planet = new Planet(this); // Creating an instence of planet
             this.gameOver = false;
             this.ui = new UI(this);
+
             this.asteroidPool = [];
             this.maxAsteroids = 15;
             this.asteroidTimer = 0;  // Helper variable to add new asteroid
             this.asteroidInterval = 800; // Helper variable to add new asteroid evey millisecond less is faster for harder levels
             this.createAsteroidPool(); // when a new Game is initiated it initiate asteroidPool elements
 
+            this.spaceOrkPool = [];
+            this.maxSpaceOrk = 5;
+            this.spaceOrkTimer = 0;  // Helper variable to add new SpaceOrk
+            this.spaceOrkInterval = 800; // Helper variable to add new SpaceOrk evey millisecond less is faster for harder levels
+            this.createSpaceOrkPool(); // when a new Game is initiated it initiate SpaceOrkPool elements
+
             this.alienPool = [];
             this.maxAliens = 5; // Maximum aliens spawn
             this.alienTimer = 0;  // Helper variable to add new alien
             this.alienInterval = 1800; // Helper variable to add new alien evey millisecond more is slower for harder levels
-            this.createAlienPool(); // when a new Game is initiated it initiate asteroidPool elements
+            this.createAlienPool(); // when a new Game is initiated it initiate alenPool elements
 
             this.score = 0;
             this.winningScore = 80; // To set the minimum score to win
@@ -400,6 +501,19 @@ window.addEventListener('load', function () {
                             if (this.score < this.winningScore) this.score++; // Add score for destroying an asteroid (could be special score)
                         }
                     })
+                    // Cycle through spaceOrk array
+                    this.spaceOrkPool.forEach(spaceOrk => {
+                        // if already out & collide with mouse
+                        if (!spaceOrk.free && this.checkCircleCollision(spaceOrk, this.mouse)) {
+                            // Helper temporary variable
+                            const explosion = this.getExplosion();
+                            // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
+                            if (explosion) explosion.start(spaceOrk.x, spaceOrk.y, spaceOrk.speed * 0.4);
+                            // remove the asteroid
+                            spaceOrk.reset();
+                            if (this.score < this.winningScore) this.score += 10; // Add score for destroying an spaceOrkd (could be special score)
+                        }
+                    })
                     // Cycle through alien array
                     this.alienPool.forEach(alien => {
                         // if already out & collide with mouse
@@ -410,7 +524,7 @@ window.addEventListener('load', function () {
                             if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
                             // remove the alien
                             alien.reset();
-                            if (this.score < this.winningScore) this.score -= 10; // Add score for mouse to asteroid (could be special score)
+                            if (this.score < this.winningScore) this.score -= 10; // Add score for mouse to alien (could be special score)
                         }
                     })
                 }
@@ -438,14 +552,19 @@ window.addEventListener('load', function () {
                 }
             });
         }
+        createAlienPool() {
+            for (let i = 0; i < this.maxAliens; i++) {
+                this.alienPool.push(new Alien(this));
+            }
+        }
         createAsteroidPool() {
             for (let i = 0; i < this.maxAsteroids; i++) {
                 this.asteroidPool.push(new Asteroid(this));
             }
         }
-        createAlienPool() {
-            for (let i = 0; i < this.maxAliens; i++) {
-                this.alienPool.push(new Alien(this));
+        createSpaceOrkPool() {
+            for (let i = 0; i < this.maxSpaceOrk; i++) {
+                this.spaceOrkPool.push(new SpaceOrk(this));
             }
         }
         createExplosionPool() {
@@ -462,6 +581,13 @@ window.addEventListener('load', function () {
             for (let i = 0; i < this.asteroidPool.length; i++) {
                 if (this.asteroidPool[i].free) {
                     return this.asteroidPool[i];
+                }
+            }
+        }
+        getSpaceOrk() {
+            for (let i = 0; i < this.spaceOrkPool.length; i++) {
+                if (this.spaceOrkPool[i].free) {
+                    return this.spaceOrkPool[i];
                 }
             }
         }
@@ -507,6 +633,15 @@ window.addEventListener('load', function () {
             } else {
                 this.asteroidTimer += deltaTime;
             }
+            // create orks periodically if not game over
+            if (this.spaceOrkTimer > this.spaceOrkInterval && !this.gameOver) {
+                // Add new spaceOrk from pool
+                const spaceOrk = this.getSpaceOrk();
+                if (spaceOrk) spaceOrk.start();
+                this.spaceOrkTimer = 0;
+            } else {
+                this.spaceOrkTimer += deltaTime;
+            }
             // create alien periodically if not game over
             if (this.alienTimer > this.alienInterval && !this.gameOver) {
                 // Add new alien from pool
@@ -520,6 +655,10 @@ window.addEventListener('load', function () {
             this.asteroidPool.forEach(asteroid => {
                 asteroid.draw(context);
                 asteroid.update();
+            });
+            this.spaceOrkPool.forEach(spaceOrk => {
+                spaceOrk.draw(context);
+                spaceOrk.update();
             });
             this.alienPool.forEach(alien => {
                 alien.draw(context);
@@ -537,7 +676,6 @@ window.addEventListener('load', function () {
             if (!this.gameOver) this.gameTime += deltaTime;
             if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
                 this.gameOver = true;
-                // Stop spawns of Asteroids and Aliens ****
             }
 
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
