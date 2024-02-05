@@ -501,7 +501,7 @@ window.addEventListener('load', function () {
                             if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
                             // remove the alien
                             alien.reset();
-                            if (this.score < this.winningScore) this.score -= 10; // Add score for mouse to alien (could be special score)
+                            if (this.score < this.winningScore) this.score -= 5; // Add score for mouse to alien (could be special score)
                         }
                     })
                 }
