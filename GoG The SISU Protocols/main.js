@@ -15,9 +15,6 @@ window.addEventListener('load', function () {
             this.radius = 440;
             this.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
             this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'; // initial sphere color
-            // this.shieldBorderColor = 'hsla(241, 48%, 40%, 0.596)'; // initial shield color
-            // this.shieldSphereColor = 'hsla(125, 46%, 38%, 0.5)'; // initial shield color
-            // this.shieldActive = true;
         }
         draw(context) {
             // drawing the half circle boarder of the planet
@@ -31,28 +28,7 @@ window.addEventListener('load', function () {
             context.lineWidth = 8;
             context.stroke();
             context.restore();
-            // draw sield if active
-            // if (this.shieldActive) this.drawShield(context);
         }
-        // drawShield(context) {
-        //     // drawing the shield
-        //     context.save();
-        //     context.beginPath();
-        //     context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false);
-        //     context.fillStyle = this.sphereColor;
-        //     context.fill();
-        //     // Setting the border color
-        //     context.strokeStyle = this.borderColor;
-        //     context.lineWidth = 8;
-        //     context.stroke();
-        //     context.restore();
-        // }
-        // shieldOn() {
-        //     this.shieldActive = true;
-        // }
-        // shieldOff() {
-        //     this.shieldActive = false;
-        // }
     }
 
     class Asteroid {
@@ -64,14 +40,14 @@ window.addEventListener('load', function () {
             this.image = document.getElementById('asteroid');
             this.spriteWidth = 150;
             this.spriteHeight = 155;
-            this.speed = Math.random() * 1.5 + 0.2;// 6.5 + 2; // random speed from 2 to 7 fps
+            this.speed = Math.random() * 3.5 + 1.5;// 6.5 + 2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
-            this.asteroidDescription = '+1/Game Over';
+            this.asteroidDescription = '  +1/Game Over';
 
         }
-        // Method to draw the object
+        // Method to draw the asteroid
         draw(context) {
             // Only draw if free space
             if (!this.free) {
@@ -136,10 +112,10 @@ window.addEventListener('load', function () {
             this.image = document.getElementById(this.aliens[this.randomImageId]);
             this.spriteWidth = 64;
             this.spriteHeight = 64;
-            this.speed = Math.random() * 1.5 + 0.2; // random speed from 2 to 7 fps
+            this.speed = Math.random() * 4.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
 
-            this.alienDescription = '±10/Collectible'; // Text for debug mode
+            this.alienDescription = '±5/Collectible'; // Text for debug mode
             this.mouvementAngle = 0; // initiating the mouvemebt angle for alien
 
 
@@ -173,15 +149,13 @@ window.addEventListener('load', function () {
             // update rotation angle
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
-                // if alien x > game width reset change to <0 for right2left
-
                 // *** check for colision between Planet and Alien ****
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
-                    // To be changed with sprite sheet for capturing
+                    // if an alien crash on the planet score -= 5
+                    this.game.score -= 5;
                     const explosion = this.game.getExplosion();
                     if (explosion) explosion.start(this.x, this.y, -this.speed);
-
                 }
             }
         }
@@ -204,14 +178,14 @@ window.addEventListener('load', function () {
             this.x = this.game.width + this.radius; // -this.radius to start L2R  // this.game.width for start from right to left. -radius so image don't popup
             this.y = Math.random() * this.game.height;
             this.orkSprite = document.getElementById('spaceOrk');
-            this.spriteWidth = 256;
-            this.spriteHeight = 256;
+            this.spriteWidth = 255;
+            this.spriteHeight = 255;
             this.frameX = 0;
             this.frameY = 0;
-            this.maxFrame = 59;
-            this.speed = Math.random() * 1.5 + 0.2;// 6.5 + 2; // random speed from 2 to 7 fps
+            this.maxFrame = 55;
+            this.speed = Math.random() * 2.5 + 0.5;// 6.5 + 2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
-            this.orkDescription = '+10/Game Over';
+            this.orkDescription = ' +10/Game Over';
 
         }
         // Method to draw the object
@@ -220,7 +194,7 @@ window.addEventListener('load', function () {
             if (!this.free) {
                 context.save();
                 // The space ork
-                context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5), this.y - (this.spriteHeight * 0.5 + 25), this.spriteWidth, this.spriteHeight);
+                context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - this.radius + 25), this.y - (this.spriteHeight * 0.5 - this.radius + 25), this.spriteWidth * 0.7, this.spriteHeight * 0.7);
 
                 // the white circle monster border and description for debug
                 if (this.game.debug) {
@@ -236,12 +210,12 @@ window.addEventListener('load', function () {
         }
         // Method to update the object
         update() {
-            // // Sprite animation
-            // if (this.frameX > this.maxFrame) {
-            //     this.frameX = 0;
-            // } else {
-            //     this.frameX++;
-            // }
+            // Sprite animation
+            if (this.frameX > this.maxFrame) {
+                this.frameX = 0;
+            } else {
+                this.frameX++;
+            }
             if (!this.free) {
                 this.x -= this.speed;
 
@@ -324,7 +298,8 @@ window.addEventListener('load', function () {
             this.y = y;
             this.frameX = 0;
             this.speed = speed;
-            this.sound = this.game.explosionSounds[Math.floor(Math.random() * this.game.explosionSounds.length)];
+            // to get a duplicate sound effect of explosion with sub classes
+            // this.sound = this.game.explosionSounds[Math.floor(Math.random() * this.game.explosionSounds.length)];
             this.play();
         }
     }
@@ -344,32 +319,30 @@ window.addEventListener('load', function () {
         // Overriding start method
         start(x, y, speed) {
             this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
-            // **** Issue to fix too many interferences ****
             this.sound.play();
             super.start(x, y, speed);
         }
     }
 
-    // // Will handle the explosion of space orks
-    // class SmokeExplosion extends Explosion {
-    //     constructor(game) {
-    //         super(game);
-    //         // Custom properties specific for smoke explosion effect
-    //         this.image = document.getElementById('disappear');
-    //         this.spriteWidth = 79.5;
-    //         this.spriteHeight = 80;
-    //         this.frameY = Math.floor(Math.random() * 4);
-    //         this.maxFrame = 7;
-    //         this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
-    //     }
-    //     // Overriding start method
-    //     start(x, y, speed) {
-    //         this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
-    //         // **** Issue to fix too many interferences ****
-    //         this.sound.play();
-    //         super.start(x, y, speed);
-    //     }
-    // }
+    // Will handle the explosion of space orks
+    class SmokeExplosion extends Explosion {
+        constructor(game) {
+            super(game);
+            // Custom properties specific for smoke explosion effect
+            this.image = document.getElementById('smokeExplosion');
+            this.spriteWidth = 200;
+            this.spriteHeight = 200;
+            this.frameY = 0;
+            this.maxFrame = 9;
+            this.sound = document.getElementById('monsterRoar');
+        }
+        // Overriding start method
+        start(x, y, speed) {
+            this.sound = document.getElementById('monsterRoar');
+            this.sound.play();
+            super.start(x, y, speed);
+        }
+    }
 
     // Will draw score, timer and other information that will display for the player
     class UI {
@@ -432,7 +405,7 @@ window.addEventListener('load', function () {
             this.createAsteroidPool(); // when a new Game is initiated it initiate asteroidPool elements
 
             this.spaceOrkPool = [];
-            this.maxSpaceOrk = 5;
+            this.maxSpaceOrk = 3;
             this.spaceOrkTimer = 0;  // Helper variable to add new SpaceOrk
             this.spaceOrkInterval = 800; // Helper variable to add new SpaceOrk evey millisecond less is faster for harder levels
             this.createSpaceOrkPool(); // when a new Game is initiated it initiate SpaceOrkPool elements
@@ -474,7 +447,11 @@ window.addEventListener('load', function () {
             this.maxDisappearance = 10;
             this.createDisappearancePool();
 
-            this.debug = false;
+            this.smokeExplosionPool = [];
+            this.maxSmokeExplosion = 15;
+            this.createSmokeExplosionPool();
+
+            this.debug = true;
 
             window.addEventListener('keyup', e => {
                 if (e.key === 'd') this.debug = !this.debug;
@@ -506,7 +483,7 @@ window.addEventListener('load', function () {
                         // if already out & collide with mouse
                         if (!spaceOrk.free && this.checkCircleCollision(spaceOrk, this.mouse)) {
                             // Helper temporary variable
-                            const explosion = this.getExplosion();
+                            const explosion = this.getSmokeExplosion();
                             // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
                             if (explosion) explosion.start(spaceOrk.x, spaceOrk.y, spaceOrk.speed * 0.4);
                             // remove the asteroid
@@ -546,7 +523,7 @@ window.addEventListener('load', function () {
                             if (disappearance) disappearance.start(alien.x, alien.y, alien.speed * 0.2);
                             // remove the alien
                             alien.reset();
-                            if (this.score < this.winningScore) this.score += 10; // Add special score for capturing an alien
+                            if (this.score < this.winningScore) this.score += 5; // Add special score for capturing an alien
                         }
                     })
                 }
@@ -575,6 +552,11 @@ window.addEventListener('load', function () {
         createDisappearancePool() {
             for (let i = 0; i < this.maxDisappearance; i++) {
                 this.disappearancePool.push(new DisappearanceExplosion(this));
+            }
+        }
+        createSmokeExplosionPool() {
+            for (let i = 0; i < this.maxSmokeExplosion; i++) {
+                this.smokeExplosionPool.push(new SmokeExplosion(this));
             }
         }
         getAsteroid() {
@@ -609,6 +591,13 @@ window.addEventListener('load', function () {
             for (let i = 0; i < this.disappearancePool.length; i++) {
                 if (this.disappearancePool[i].free) {
                     return this.disappearancePool[i];
+                }
+            }
+        }
+        getSmokeExplosion() {
+            for (let i = 0; i < this.smokeExplosionPool.length; i++) {
+                if (this.smokeExplosionPool[i].free) {
+                    return this.smokeExplosionPool[i];
                 }
             }
         }
@@ -672,6 +661,10 @@ window.addEventListener('load', function () {
                 disappearance.draw(context);
                 disappearance.update(deltaTime);
             });
+            this.smokeExplosionPool.forEach(smokeExplosion => {
+                smokeExplosion.draw(context);
+                smokeExplosion.update(deltaTime);
+            });
             // Drawing the UI
             if (!this.gameOver) this.gameTime += deltaTime;
             if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
@@ -696,8 +689,6 @@ window.addEventListener('load', function () {
 });
 
 
-// **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720
-// Add spaceOrk Class and function and use animated sprite sheet (takes three hits and give +10 score)
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
@@ -708,6 +699,10 @@ window.addEventListener('load', function () {
 // Adding Play/Pause/restart mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
+// Add spaceOrk Class and function (takes three hits and give +10 score)
+// Add animated sprite sheet for spaceOrk ** done
+// Add smokeExplosion Class and function and use animated sprite sheet for spaceOrk explosion
+// **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720 ** done
 // Creating a debug mode trigger by key 'd' ** done
 // Adding description for asteroids and aliens in debug mode ** done
 // Adding grab sprite sheet for collecting aliens ** done
@@ -716,6 +711,7 @@ window.addEventListener('load', function () {
 // Adding an event listener for right mouse button click ** done
 // Collecting an alien add special score ** done
 // Shouting an alien deduct score or time ** done
+// if an alien crash on the planet score -= 5 ** done
 // Adding a protective sphere (planet border expands) that activate if gameOver and score > maxScore by changing in draw() method in Planet class ---> context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false); ** done
 // Applying a mouvement animation to aliens ** done
 // New Asteroids and Aliens stop being created when game over fixed ** done
