@@ -559,7 +559,7 @@ window.addEventListener('load', function () {
 
 
 // **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720
-// Add spaceOrk Class and function (takes three hits and give +10 score)
+// Add spaceOrk Class and function and use animated sprite sheet (takes three hits and give +10 score)
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
@@ -567,7 +567,8 @@ window.addEventListener('load', function () {
 // Adding Player/Robot
 // Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
-// Adding Play/Pause mode (maybe same technique as debug mode using spaceBar or 'p')
+// Adding Play/Pause/restart mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
+
 
 // Creating a debug mode trigger by key 'd' ** done
 // Adding description for asteroids and aliens in debug mode ** done
