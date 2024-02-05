@@ -77,7 +77,7 @@ window.addEventListener('load', function () {
                 this.x -= this.speed; // to move to the right on the horizontal x axis change to -= to move from left
                 // if asteroid x > game width reset change to <0 for right2left
 
-                // Check for collision between Asteroid and Planet
+                // Check for collision between Asteroid and Planet *** Logic should be in game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
                     this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
@@ -149,7 +149,8 @@ window.addEventListener('load', function () {
             // update rotation angle
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
-                // *** check for colision between Planet and Alien ****
+
+                // *** check for colision between Planet and Alien *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
                     // if an alien crash on the planet score -= 5
@@ -219,7 +220,7 @@ window.addEventListener('load', function () {
             if (!this.free) {
                 this.x -= this.speed;
 
-                // Check for collision between spaceOrk and Planet
+                // Check for collision between spaceOrk and Planet *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
                     this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
@@ -451,7 +452,7 @@ window.addEventListener('load', function () {
             this.maxSmokeExplosion = 15;
             this.createSmokeExplosionPool();
 
-            this.debug = true;
+            this.debug = false;
 
             window.addEventListener('keyup', e => {
                 if (e.key === 'd') this.debug = !this.debug;
@@ -501,7 +502,7 @@ window.addEventListener('load', function () {
                             if (explosion) explosion.start(alien.x, alien.y, alien.speed * 0.2);
                             // remove the alien
                             alien.reset();
-                            if (this.score < this.winningScore) this.score -= 5; // Add score for mouse to alien (could be special score)
+                            if (this.score < this.winningScore) this.score -= 10; // Add score for mouse to alien (could be special score)
                         }
                     })
                 }
@@ -671,6 +672,8 @@ window.addEventListener('load', function () {
                 this.gameOver = true;
             }
 
+            // *** The game logic for score +- and gameOver (collision with planet) for Asteroids, Aliens and SpaceOrks
+
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
         }
     }
@@ -699,8 +702,8 @@ window.addEventListener('load', function () {
 // Adding Play/Pause/restart mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
+// Add animated sprite sheet for spaceOrk
 // Add spaceOrk Class and function (takes three hits and give +10 score)
-// Add animated sprite sheet for spaceOrk ** done
 // Add smokeExplosion Class and function and use animated sprite sheet for spaceOrk explosion
 // **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720 ** done
 // Creating a debug mode trigger by key 'd' ** done
