@@ -11,7 +11,7 @@ window.addEventListener('load', function () {
         constructor(game) {
             this.game = game;
             this.x = -260;
-            this.y = 400;
+            this.y = 380;
             this.radius = 440;
             this.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
             this.sphereColor = 'hsla(157, 100%, 75%, 0.11)'; // initial sphere color
