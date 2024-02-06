@@ -455,10 +455,18 @@ window.addEventListener('load', function () {
             this.createSmokeExplosionPool();
 
             this.debug = false;
+            this.pause = false;
 
             window.addEventListener('keyup', e => {
-                if (e.key === 'd') this.debug = !this.debug;
-                // console.log(this.debug);
+                if (e.key === 'd') {
+                    this.toggleDebug();
+                    // console.log(this.debug);
+                }
+                // ' ' for spacebar
+                else if (e.key === ' ') {
+                    this.togglePause();
+                    // console.log(this.pause);
+                }
             });
 
             window.addEventListener('click', e => {
@@ -470,8 +478,8 @@ window.addEventListener('load', function () {
                 if (!this.gameOver) {
                     // Cycle through asteroid array
                     this.asteroidPool.forEach(asteroid => {
-                        // if already out & collide with mouse
-                        if (!asteroid.free && this.checkCircleCollision(asteroid, this.mouse)) {
+                        // if already out & collide with mouse and not pause
+                        if (!asteroid.free && this.checkCircleCollision(asteroid, this.mouse) && !this.pause) {
                             // Helper temporary variable
                             const explosion = this.getExplosion();
                             // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
@@ -483,8 +491,8 @@ window.addEventListener('load', function () {
                     })
                     // Cycle through spaceOrk array
                     this.spaceOrkPool.forEach(spaceOrk => {
-                        // if already out & collide with mouse
-                        if (!spaceOrk.free && this.checkCircleCollision(spaceOrk, this.mouse)) {
+                        // if already out & collide with mouse and not pause
+                        if (!spaceOrk.free && this.checkCircleCollision(spaceOrk, this.mouse) && !this.pause) {
                             // Helper temporary variable
                             const explosion = this.getSmokeExplosion();
                             // setting explosion coordinates to asteroid and motion to a fraction 0.4 of asteroid speed
@@ -496,8 +504,8 @@ window.addEventListener('load', function () {
                     })
                     // Cycle through alien array
                     this.alienPool.forEach(alien => {
-                        // if already out & collide with mouse
-                        if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
+                        // if already out & collide with mouse and not pause
+                        if (!alien.free && this.checkCircleCollision(alien, this.mouse) && !this.pause) {
                             // Helper temporary variable
                             const explosion = this.getExplosion();
                             // setting explosion coordinates to alien and motion to a fraction 0.2 of alien speed
@@ -518,8 +526,8 @@ window.addEventListener('load', function () {
                 if (!this.gameOver) {
                     // Cycle through alien array
                     this.alienPool.forEach(alien => {
-                        // if already out & collide with mouse
-                        if (!alien.free && this.checkCircleCollision(alien, this.mouse)) {
+                        // if already out & collide with mouse and not paused
+                        if (!alien.free && this.checkCircleCollision(alien, this.mouse) && !this.pause) {
                             // Helper temporary variable
                             const disappearance = this.getDisappearance();
                             // setting capture coordinates to alien and motion to a fraction 0.2 of alien speed
@@ -531,6 +539,14 @@ window.addEventListener('load', function () {
                     })
                 }
             });
+        }
+        // method to toggle debug mode
+        toggleDebug() {
+            this.debug = !this.debug;
+        }
+        // method to togglee pause/resume
+        togglePause() {
+            this.pause = !this.pause;
         }
         createAlienPool() {
             for (let i = 0; i < this.maxAliens; i++) {
@@ -613,6 +629,7 @@ window.addEventListener('load', function () {
             return distance < sumOfRadii; // will return true if objects are overlapping else false
         }
         render(context, deltaTime) {
+
             // Drawing the planet
             this.planet.draw(context);
 
@@ -646,30 +663,37 @@ window.addEventListener('load', function () {
 
             this.asteroidPool.forEach(asteroid => {
                 asteroid.draw(context);
-                asteroid.update();
+                // condition for updating the element
+                if (!this.pause) asteroid.update();
             });
             this.spaceOrkPool.forEach(spaceOrk => {
                 spaceOrk.draw(context);
-                spaceOrk.update();
+                // condition for updating the element
+                if (!this.pause) spaceOrk.update();
             });
             this.alienPool.forEach(alien => {
                 alien.draw(context);
-                alien.update();
+                // condition for updating the element
+                if (!this.pause) alien.update();
             });
             this.explosionPool.forEach(explosion => {
                 explosion.draw(context);
-                explosion.update(deltaTime);
+                // condition for updating the element
+                if (!this.pause) explosion.update(deltaTime);
             });
             this.disappearancePool.forEach(disappearance => {
                 disappearance.draw(context);
-                disappearance.update(deltaTime);
+                // condition for updating the element
+                if (!this.pause) disappearance.update(deltaTime);
             });
             this.smokeExplosionPool.forEach(smokeExplosion => {
                 smokeExplosion.draw(context);
-                smokeExplosion.update(deltaTime);
+                // condition for updating the element
+                if (!this.pause) smokeExplosion.update(deltaTime);
             });
 
-            if (!this.gameOver) this.gameTime += deltaTime;
+            // Conditions for gameTime update 
+            if (!this.gameOver && !this.pause) this.gameTime += deltaTime;
             if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
                 this.gameOver = true;
             }
@@ -678,7 +702,9 @@ window.addEventListener('load', function () {
 
             // Drawing the UI
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
+
         }
+
     }
 
     const game = new Game(canvas.width, canvas.height);
@@ -701,12 +727,14 @@ window.addEventListener('load', function () {
 // Adding Player/Robot
 // Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
-// Adding Play/Pause/restart mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
+// Adding Play mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
-// Add animated sprite sheet for spaceOrk
-// Add spaceOrk Class and function (takes three hits and give +10 score)
-// Add smokeExplosion Class and function and use animated sprite sheet for spaceOrk explosion
+// Added keyup condition for pause using spacebar ** done
+// Added pause/resume mode and conditions ** done
+// Add animated sprite sheet for spaceOrk ** done
+// Add spaceOrk Class and function (takes three hits and give +10 score) ** done
+// Add smokeExplosion Class and function and use animated sprite sheet for spaceOrk explosion ** done
 // **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720 ** done
 // Creating a debug mode trigger by key 'd' ** done
 // Adding description for asteroids and aliens in debug mode ** done
