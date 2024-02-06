@@ -154,7 +154,9 @@ window.addEventListener('load', function () {
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
                     // if an alien crash on the planet score -= 5
-                    this.game.score -= 5;
+                    if (!this.game.gameOver) {
+                        this.game.score -= 5;
+                    }
                     const explosion = this.game.getExplosion();
                     if (explosion) explosion.start(this.x, this.y, -this.speed);
                 }
@@ -673,6 +675,7 @@ window.addEventListener('load', function () {
             }
 
             // *** The game logic for score +- and gameOver (collision with planet) for Asteroids, Aliens and SpaceOrks
+
             // Drawing the UI
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
         }
@@ -688,7 +691,7 @@ window.addEventListener('load', function () {
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
-    // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
+    animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
 
