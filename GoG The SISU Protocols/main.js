@@ -666,14 +666,14 @@ window.addEventListener('load', function () {
                 smokeExplosion.draw(context);
                 smokeExplosion.update(deltaTime);
             });
-            // Drawing the UI
+
             if (!this.gameOver) this.gameTime += deltaTime;
             if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
                 this.gameOver = true;
             }
 
             // *** The game logic for score +- and gameOver (collision with planet) for Asteroids, Aliens and SpaceOrks
-
+            // Drawing the UI
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
         }
     }
@@ -688,7 +688,7 @@ window.addEventListener('load', function () {
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
-    animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
+    // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
 
