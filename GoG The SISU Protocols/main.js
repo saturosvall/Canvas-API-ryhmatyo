@@ -75,12 +75,11 @@ window.addEventListener('load', function () {
             if (!this.free) {
                 this.angle += this.va;
                 this.x -= this.speed; // to move to the right on the horizontal x axis change to -= to move from left
-                // if asteroid x > game width reset change to <0 for right2left
 
                 // Check for collision between Asteroid and Planet *** Logic should be in game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
-                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
+                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
 
                     this.reset();
                     const explosion = this.game.getExplosion();
@@ -107,11 +106,14 @@ window.addEventListener('load', function () {
             this.radius = 32;
             this.x = this.game.width + this.radius // this.radius for left to right // this.game.width for start from right to left
             this.y = Math.random() * this.game.height;
-            this.aliens = ['alien1', 'alien2', 'alien3'];
+            this.aliens = ['alien2', 'alien3', 'alien2'];
             this.randomImageId = Math.floor(Math.random() * 3);
-            this.image = document.getElementById(this.aliens[this.randomImageId]);
-            this.spriteWidth = 64;
+            this.alienSprite = document.getElementById(this.aliens[this.randomImageId]);
+            this.spriteWidth = 70;
             this.spriteHeight = 64;
+            this.frameX = 0;
+            this.frameY = 0;
+            this.maxFrame = 5;
             this.speed = Math.random() * 4.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
 
@@ -135,9 +137,10 @@ window.addEventListener('load', function () {
                     context.font = '25px Bangers';
                     context.fillText(this.alienDescription, this.x - this.radius * 2, this.y - this.radius);
                 };
-
+                // // The space ork animated sprite sheet (9 arguments)
+                // context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - this.radius + 25), this.y - (this.spriteHeight * 0.5 - this.radius + 25), this.spriteWidth * 0.7, this.spriteHeight * 0.7);
                 // the alien figurine
-                context.drawImage(this.image, this.x - this.spriteWidth * 0.5, this.y - this.spriteHeight * 0.5, this.spriteWidth, this.spriteHeight);
+                context.drawImage(this.alienSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - 6), this.y - (this.spriteWidth * 0.5 - 12), this.spriteWidth * 0.8, this.spriteHeight * 0.8);
                 context.restore();
             }
         }
@@ -147,6 +150,12 @@ window.addEventListener('load', function () {
             this.mouvementAngle += 0.1; // how fast up & down
             this.y = this.y + Math.sin(this.mouvementAngle) * 4; // how much up & down
             // update rotation angle
+            // Sprite animation
+            if (this.frameX > this.maxFrame) {
+                this.frameX = 0;
+            } else {
+                this.frameX++;
+            }
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
 
@@ -225,7 +234,7 @@ window.addEventListener('load', function () {
                 // Check for collision between spaceOrk and Planet *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
-                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.158)';
+                    this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
 
                     this.reset();
                     const explosion = this.game.getExplosion();
