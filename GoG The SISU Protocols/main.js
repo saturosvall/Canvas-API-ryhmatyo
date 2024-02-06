@@ -184,7 +184,7 @@ window.addEventListener('load', function () {
             this.spriteWidth = 255;
             this.spriteHeight = 255;
             this.frameX = 0;
-            this.frameY = 0;
+            this.frameY = Math.floor(Math.random() * 3);
             this.maxFrame = 55;
             this.speed = Math.random() * 2.5 + 0.5;// 6.5 + 2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
@@ -196,8 +196,8 @@ window.addEventListener('load', function () {
             // Only draw if free space
             if (!this.free) {
                 context.save();
-                // The space ork
-                context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, 0, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - this.radius + 25), this.y - (this.spriteHeight * 0.5 - this.radius + 25), this.spriteWidth * 0.7, this.spriteHeight * 0.7);
+                // The space ork animated sprite sheet (9 arguments)
+                context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - this.radius + 25), this.y - (this.spriteHeight * 0.5 - this.radius + 25), this.spriteWidth * 0.7, this.spriteHeight * 0.7);
 
                 // the white circle monster border and description for debug
                 if (this.game.debug) {
@@ -266,7 +266,7 @@ window.addEventListener('load', function () {
         // method to draw the sprite sheets
         draw(context) {
             if (!this.free) {
-                context.drawImage(this.image, this.spriteWidth * this.frameX, this.spriteHeight * this.frameY, this.spriteWidth, this.spriteHeight, this.x - this.spriteWidth * 0.5, this.y - this.spriteWidth * 0.5, this.spriteWidth, this.spriteHeight);
+                context.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - this.spriteWidth * 0.5, this.y - this.spriteWidth * 0.5, this.spriteWidth, this.spriteHeight);
             }
         }
         // Method to cycle through the sprite sheets of the explosion
@@ -698,7 +698,6 @@ window.addEventListener('load', function () {
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
-//  Aliens spawn randomly and less frequent than meteorites and steroids
 // Adding Player/Robot
 // Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
@@ -721,3 +720,4 @@ window.addEventListener('load', function () {
 // Adding a protective sphere (planet border expands) that activate if gameOver and score > maxScore by changing in draw() method in Planet class ---> context.arc(this.x - 900, this.y, this.radius * 5, -1, 1, false); ** done
 // Applying a mouvement animation to aliens ** done
 // New Asteroids and Aliens stop being created when game over fixed ** done
+//  Aliens spawn randomly and less frequent than spaceOrks and steroids ** done
