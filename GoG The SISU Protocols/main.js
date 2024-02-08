@@ -1,7 +1,7 @@
 window.addEventListener('load', function () {
     const canvas = this.document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = 1280; // **** WE NEED A BETTER BACKGROUND with exact width and height 1280*720
+    canvas.width = 1280;
     canvas.height = 720;
     ctx.strokeStyle = 'white'; // Overriding the default black strokeStyle
     ctx.lineWidth = 3; // Overriding the default lineWidth
@@ -106,14 +106,12 @@ window.addEventListener('load', function () {
             this.radius = 32;
             this.x = this.game.width + this.radius // this.radius for left to right // this.game.width for start from right to left
             this.y = Math.random() * this.game.height;
-            this.aliens = ['alien2', 'alien3', 'alien2'];
-            this.randomImageId = Math.floor(Math.random() * 3);
-            this.alienSprite = document.getElementById(this.aliens[this.randomImageId]);
+            this.alienSprite = document.getElementById('aliens');
             this.spriteWidth = 70;
-            this.spriteHeight = 64;
+            this.spriteHeight = 70;
             this.frameX = 0;
-            this.frameY = 0;
-            this.maxFrame = 5;
+            this.frameY = Math.floor(Math.random() * 3);
+            this.maxFrame = 11;
             this.speed = Math.random() * 4.5 + 0.2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
 
@@ -137,8 +135,7 @@ window.addEventListener('load', function () {
                     context.font = '25px Bangers';
                     context.fillText(this.alienDescription, this.x - this.radius * 2, this.y - this.radius);
                 };
-
-                // the alien figurine animated sprite sheet (9 arguments)
+                // the alien figurine
                 context.drawImage(this.alienSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - 6), this.y - (this.spriteWidth * 0.5 - 12), this.spriteWidth * 0.8, this.spriteHeight * 0.8);
                 context.restore();
             }
@@ -157,7 +154,6 @@ window.addEventListener('load', function () {
             }
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
-
                 // *** check for colision between Planet and Alien *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
@@ -229,7 +225,6 @@ window.addEventListener('load', function () {
             }
             if (!this.free) {
                 this.x -= this.speed;
-
                 // Check for collision between spaceOrk and Planet *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
@@ -372,11 +367,9 @@ window.addEventListener('load', function () {
             context.font = this.fontSize + 'px ' + this.fontFamily;
             // Score
             context.fillText('Score: ' + this.game.score, 30, 40);
-
             // Timer
             const formattedTime = (this.game.gameTime * 0.001).toFixed(1); // toFixed method formats a number using fixed point notation (after decimal point)
             context.fillText('Timer: ' + formattedTime, 20, 80);
-
             // Game over message
             if (this.game.gameOver) {
                 context.textAlign = 'center';
@@ -416,7 +409,7 @@ window.addEventListener('load', function () {
             this.createAsteroidPool(); // when a new Game is initiated it initiate asteroidPool elements
 
             this.spaceOrkPool = [];
-            this.maxSpaceOrk = 3;
+            this.maxSpaceOrk = 4;
             this.spaceOrkTimer = 0;  // Helper variable to add new SpaceOrk
             this.spaceOrkInterval = 800; // Helper variable to add new SpaceOrk evey millisecond less is faster for harder levels
             this.createSpaceOrkPool(); // when a new Game is initiated it initiate SpaceOrkPool elements
@@ -479,10 +472,8 @@ window.addEventListener('load', function () {
 
             window.addEventListener('click', e => {
                 // Add explosions at a click coordinates with the default mouse click (left)
-                // console.log(e); // since canvas isn't full screen we need to use offsetX and offsetY
-                this.mouse.x = e.offsetX;
+                this.mouse.x = e.offsetX; // since canvas isn't full screen we need to use offsetX and offsetY
                 this.mouse.y = e.offsetY;
-
                 if (!this.gameOver) {
                     // Cycle through asteroid array
                     this.asteroidPool.forEach(asteroid => {
@@ -637,7 +628,6 @@ window.addEventListener('load', function () {
             return distance < sumOfRadii; // will return true if objects are overlapping else false
         }
         render(context, deltaTime) {
-
             // Drawing the planet
             this.planet.draw(context);
 
@@ -729,6 +719,7 @@ window.addEventListener('load', function () {
 });
 
 
+// Add a favicon to the html
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
@@ -738,6 +729,7 @@ window.addEventListener('load', function () {
 // Adding Play mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
+// Add animated sprite sheet for aliens ** done
 // Added keyup condition for pause using spacebar ** done
 // Added pause/resume mode and conditions ** done
 // Add animated sprite sheet for spaceOrk ** done
