@@ -76,7 +76,7 @@ window.addEventListener('load', function () {
                 this.angle += this.va;
                 this.x -= this.speed; // to move to the right on the horizontal x axis change to -= to move from left
 
-                // Check for collision between Asteroid and Planet *** Logic should be in game render
+                // To fix Check for collision between Asteroid and Planet *** Logic should be in game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
                     this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
@@ -154,7 +154,7 @@ window.addEventListener('load', function () {
             }
             if (!this.free) {
                 this.x -= this.speed; // += to move to the right on the horizontal x axis change to -= to move from left
-                // *** check for colision between Planet and Alien *** Logic should be in Game render
+                // *** To fix check for colision between Planet and Alien *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.reset();
                     // if an alien crash on the planet score -= 5
@@ -225,7 +225,7 @@ window.addEventListener('load', function () {
             }
             if (!this.free) {
                 this.x -= this.speed;
-                // Check for collision between spaceOrk and Planet *** Logic should be in Game render
+                // ** to fix: Check for collision between spaceOrk and Planet *** Logic should be in Game render
                 if (this.game.checkCircleCollision(this, this.game.planet)) {
                     this.game.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';
                     this.game.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
@@ -719,7 +719,6 @@ window.addEventListener('load', function () {
 });
 
 
-// Add a favicon to the html
 // For Näyttö maybe a game responsive and playable on any device (android, iPhone, tablet and desktop)
 // Cleaning up the code
 // The planet border : maybe lives for planet ???
@@ -729,6 +728,7 @@ window.addEventListener('load', function () {
 // Adding Play mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
+// Add a favicon to the html ** done
 // Add animated sprite sheet for aliens ** done
 // Added keyup condition for pause using spacebar ** done
 // Added pause/resume mode and conditions ** done
