@@ -459,14 +459,19 @@ window.addEventListener('load', function () {
             this.pause = false;
 
             window.addEventListener('keyup', e => {
+                // Event for debug mode
                 if (e.key === 'd') {
                     this.toggleDebug();
                     // console.log(this.debug);
                 }
-                // ' ' for spacebar
+                // Event for game pause (' ' for spacebar)
                 else if (e.key === ' ') {
                     this.togglePause();
                     // console.log(this.pause);
+                }
+                // Event for game restart
+                else if (e.key === 'r') {
+                    this.restartGame();
                 }
             });
 
@@ -546,6 +551,32 @@ window.addEventListener('load', function () {
         // method to togglee pause/resume
         togglePause() {
             this.pause = !this.pause;
+        }
+        restartGame() {
+            // Reset all initial properties
+            this.gameOver = false;
+            this.debug = false;
+            this.pause = false;
+            this.score = 0;
+            this.gameTime = 0;
+            this.asteroidPool = [];
+            this.asteroidTimer = 0;
+            this.spaceOrkPool = [];
+            this.spaceOrkTimer = 0;
+            this.alienPool = [];
+            this.alienTimer = 0;
+            this.explosionPool = [];
+            this.disappearancePool = [];
+            this.smokeExplosionPool = [];
+            // Re-create the objects - pools
+            this.createAsteroidPool();
+            this.createSpaceOrkPool();
+            this.createAlienPool();
+            this.createExplosionPool();
+            this.createDisappearancePool();
+            this.createSmokeExplosionPool();
+            // Re-call render method to start the game based on initial values
+            this.render(ctx, 0); // 0 as initial deltaTime
         }
         createAlienPool() {
             for (let i = 0; i < this.maxAliens; i++) {
@@ -725,9 +756,9 @@ window.addEventListener('load', function () {
 // Adding Player/Robot
 // Adding a circle/shield for robot if hitting 40 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
-// Adding Play mode (maybe same technique as debug mode using spaceBar or 's', 'p' & 'r')
 
 
+// Adding restart mode using 'r' (maybe same technique as debug mode using 'r' or 's') ** done
 // Add a favicon to the html ** done
 // Add animated sprite sheet for aliens ** done
 // Added keyup condition for pause using spacebar ** done
