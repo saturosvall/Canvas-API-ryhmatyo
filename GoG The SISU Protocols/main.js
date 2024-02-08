@@ -137,9 +137,8 @@ window.addEventListener('load', function () {
                     context.font = '25px Bangers';
                     context.fillText(this.alienDescription, this.x - this.radius * 2, this.y - this.radius);
                 };
-                // // The space ork animated sprite sheet (9 arguments)
-                // context.drawImage(this.orkSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - this.radius + 25), this.y - (this.spriteHeight * 0.5 - this.radius + 25), this.spriteWidth * 0.7, this.spriteHeight * 0.7);
-                // the alien figurine
+
+                // the alien figurine animated sprite sheet (9 arguments)
                 context.drawImage(this.alienSprite, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - (this.spriteWidth * 0.5 - 6), this.y - (this.spriteWidth * 0.5 - 12), this.spriteWidth * 0.8, this.spriteHeight * 0.8);
                 context.restore();
             }
