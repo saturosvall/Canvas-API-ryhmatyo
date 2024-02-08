@@ -376,8 +376,6 @@ window.addEventListener('load', function () {
                 let message1;
                 let message2;
                 if (this.game.score >= this.game.winningScore) {
-                    // Where should the Planet border expands (we could call Planet shield activated when winning the game)
-                    this.game.planet.radius += 2;
                     message1 = 'SISU Protocols Succeeded!';
                     message2 = 'The Planet is Safe and the shield is now active!!';
                 } else {
@@ -555,6 +553,9 @@ window.addEventListener('load', function () {
         restartGame() {
             // Reset all initial properties
             this.gameOver = false;
+            this.planet.radius = 440; // initial planet border
+            this.planet.borderColor = 'hsla(175, 100%, 75%, 0.356)'; // initial border color
+            this.planet.sphereColor = 'hsla(157, 100%, 75%, 0.11)'; // initial sphere color
             this.debug = false;
             this.pause = false;
             this.score = 0;
@@ -723,7 +724,15 @@ window.addEventListener('load', function () {
 
             // Conditions for gameTime update 
             if (!this.gameOver && !this.pause) this.gameTime += deltaTime;
-            if (this.gameTime > this.timeLimit || this.score >= this.winningScore) {
+            // Condition for winning and losing
+            if (this.score >= this.winningScore) {
+                // Where should the Planet border expands (we could call Planet shield activated when winning the game)
+                this.planet.radius += 2;
+                this.gameOver = true;
+            } else if (this.gameTime > this.timeLimit) {
+                //  *** we should put the circle collision for asteroids and spaceOrks here too !!! but maybe for the näyttö
+                this.planet.borderColor = 'hsla(12, 75%, 45%, 0.315)';  // if game over changes in the planet border color
+                this.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
                 this.gameOver = true;
             }
 
@@ -757,11 +766,14 @@ window.addEventListener('load', function () {
 // Cleaning up the code and fixing the game logic we left place in comments
 // The planet border : maybe lives for planet ???
 
+
+// Maybe a gradiant color for the planet border for better look
 // Adding Player/Robot
 // Adding a circle/shield that last for 5 for robot if hitting 10 or 15 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 
 
+// Bug related to restart mode: cause/solution --> the state of the Planet border isn't re-initialized to original so it is still expanded!! **  found solved
 // Adding restart mode using 'r' (maybe same technique as debug mode using 'r' or 's') ** done
 // Add a favicon to the html ** done
 // Add animated sprite sheet for aliens ** done
