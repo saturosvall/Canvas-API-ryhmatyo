@@ -15,19 +15,7 @@
   max-height: 100%;
   font-family: "Bangers", cursive;
 }
-.alienTarget {
-  height: 64px;
-  width: 64px;
-  position: absolute;
-  transition: 0.25s;
-  animation: animateTarget 10s infinite;
-}
 
-@keyframes animateTarget {
-  to {
-    transform: translateY(-200px) rotate(90deg);
-  }
-}
 .hidden {
   display: none;
 }
