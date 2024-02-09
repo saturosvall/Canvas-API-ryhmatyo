@@ -772,6 +772,10 @@ window.addEventListener('load', function () {
 // Adding a circle/shield that last for 5 for robot if hitting 10 or 15 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 
+// image for pause event
+// image for how to play
+// event for keyboard 'h'
+
 
 // Bug related to restart mode: cause/solution --> the state of the Planet border isn't re-initialized to original so it is still expanded!! **  found solved
 // Adding restart mode using 'r' (maybe same technique as debug mode using 'r' or 's') ** done
