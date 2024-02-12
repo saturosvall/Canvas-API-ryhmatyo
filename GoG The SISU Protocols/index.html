@@ -14,21 +14,38 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas id="canvas1"></canvas>
-    <div class="hidden">
-      <!-- Treats -->
-      <img src="./assets/asteroid.png" id="asteroid" alt="asteroid" />
-      <img src="./assets/aliens.png" id="aliens" alt="aliens" />
-      <img src="./assets/ork2.png" id="spaceOrk" alt="spaceOrk" />
+    <div class="container">
+      <div class="hidden">
+        <!-- Treats -->
+        <img src="./assets/asteroid.png" id="asteroid" alt="asteroid" />
+        <img src="./assets/aliens.png" id="aliens" alt="aliens" />
+        <img src="./assets/ork2.png" id="spaceOrk" alt="spaceOrk" />
 
-      <!-- Animations -->
-      <img src="./assets/explosions.png" id="explosions" alt="explosions" />
-      <img src="./assets/dissapear.png" id="disappear" alt="disappear" />
-      <img
-        src="./assets/smokeExplosion.png"
-        id="smokeExplosion"
-        alt="smokeExplosion"
-      />
+        <!-- Animations -->
+        <img src="./assets/explosions.png" id="explosions" alt="explosions" />
+        <img src="./assets/dissapear.png" id="disappear" alt="disappear" />
+        <img
+          src="./assets/smokeExplosion.png"
+          id="smokeExplosion"
+          alt="smokeExplosion"
+        />
+      </div>
+      <div class="menu-images">
+        <!-- menu -->
+        <img
+          src="./assets/GoG - Pause menu.gif"
+          id="pauseImage"
+          alt="pauseImage"
+          class="hidden menu-image"
+        />
+        <img
+          src="./assets/GoG - How to play menu.gif"
+          id="helpImage"
+          alt="helpImage"
+          class="hidden menu-image"
+        />
+      </div>
+      <canvas id="canvas1"></canvas>
     </div>
 
     <!-- Sounds -->
