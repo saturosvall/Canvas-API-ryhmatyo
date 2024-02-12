@@ -17,7 +17,7 @@ Tämä 2D-peli on toteutettu HTML:n Canvas API:n, CSS:n ja JavaScriptin avulla R
 
 ## Kuvaus
 
-GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeettaa ulkoavaruudesta tulevilta hyökkäyksiltä. Muukalaislajit himoitsevat planeetan fotoneja, jotka ovat planeetan suojakilven elinehto. Pelaajan tulee kerätä fotoneja tuhoamalla Avaruusörkkejä ja Asteroideja tai keräämällä Alienhahmoja. Keräämällä 100  fotonia planeetan suojakilpi aktivoituu ja planeetta on turvassa.
+GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeettaa ulkoavaruudesta tulevilta hyökkäyksiltä. Muukalaislajit himoitsevat planeetan fotoneja, jotka ovat planeetan suojakilven elinehto. Pelaajan tulee kerätä fotoneja tuhoamalla Avaruusörkkejä ja Asteroideja tai keräämällä Alienhahmoja. Keräämällä 100 fotonia planeetan suojakilpi aktivoituu ja planeetta on turvassa.
 
 ## Kuinka Pelata
 
@@ -41,7 +41,7 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 
 ## Asennus
 
-Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselaimella täällä : https://saturosvall.github.io/Canvas-API-ryhmatyo/.
+Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselaimella tai [Kokeile täältä](https://saturosvall.github.io/Canvas-API-ryhmatyo/)
 
 ## Käyttö
 
