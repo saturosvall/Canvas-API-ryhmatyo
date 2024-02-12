@@ -1,7 +1,7 @@
-# Guardian Of Gaia: The SISU Protocols
+# Guardian Of GaYa: The SISU Protocols
 
 Tämä 2D-peli on toteutettu HTML:n Canvas API:n, CSS:n ja JavaScriptin avulla ROSAVALL Satu ja ROUISSI Yahya projektityönä.
-[Kokeile täältä](https://......)
+[Kokeile täältä](https://saturosvall.github.io/Canvas-API-ryhmatyo/)
 
 ## Sisällysluettelo
 
@@ -21,7 +21,7 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 
 ## Kuinka Pelata
 
-1. Avaa tiedosto `xxxxx` verkkoselaimessa.
+1. Avaa tiedosto `index.html` verkkoselaimessa.
 2. Estä Asteroideja ja Avaruusörkkejä osumasta planeettaan.
 3. Tuhoa Asteroidit klikkaamalla hiiren vasemmalla ---> + 1 fotoni
 4. Tuhoa Avaruusörkit klikkaamalla hiiren vasemmalla ---> + 10 fotonia
@@ -41,11 +41,11 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 
 ## Asennus
 
-Asennusta ei tarvita. Avaa tiedosto `https://......` vain nykyaikaisella verkkoselaimella.
+Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselaimella täällä : https://saturosvall.github.io/Canvas-API-ryhmatyo/.
 
 ## Käyttö
 
-Kloonaa arkisto ja avaa tiedosto `https://......` selaimellasi pelataksesi peliä. Voit muokata peliä muokkaamalla HTML-, CSS- ja JavaScript-tiedostoja tarpeen mukaan.
+Kloonaa arkisto ja avaa tiedosto `index.html` selaimellasi pelataksesi peliä. Voit muokata peliä muokkaamalla HTML-, CSS- ja JavaScript-tiedostoja tarpeen mukaan.
 
 ## Osallistuva
 
