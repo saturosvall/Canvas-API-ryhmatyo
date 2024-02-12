@@ -40,7 +40,7 @@ window.addEventListener('load', function () {
             this.image = document.getElementById('asteroid');
             this.spriteWidth = 150;
             this.spriteHeight = 155;
-            this.speed = Math.random() * 3.5 + 1.5;// 6.5 + 2; // random speed from 2 to 7 fps
+            this.speed = Math.random() * 5.5 + 1.5;// 6.5 + 2; // random speed from 2 to 7 fps
             this.free = true; // property or flag to mark as active or not
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
@@ -802,16 +802,14 @@ window.addEventListener('load', function () {
 // Adding a circle/shield that last for 5 for robot if hitting 10 or 15 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 
-// Add the video intro and keyboards 't' for tarina maybe ??
+// Add the video intro and keyboards 't' for tarina maybe ???
 
 
-// Adding README
-
-
-// // Fixing the game story **  waiting for approval ** done
-// Planet defencive capability is critically low against asteroids and spaceOrks & will totally collapse in (maxTime) decreasing percentage
+// Adding/updating README ** done
+// // Fixing the game story **  done
+// Planet defencive capability is critically low against asteroids and spaceOrks & will totally collapse in (maxTime) decreasing percentage ** added to tarina
 // SISU Protocols are in place to defend the planet & collect enough photons to power up & activate the shield
-// shield activates if enough photons/Gamma radiation is colleted to power up
+// shield activates if enough photons/Gamma radiation is colleted to power up ** added to Hoe to play menu ** done
 // Changing Timer to percentage until Planet loses its last defencive capability in IU time limit is maxTime in seconds: replace //  const formattedTime = (this.game.gameTime * 0.001).toFixed(1); with const percentage = ((this.game.gameTime * 0.001)/this.timeLimit)*100; and then replace in 374 this: context.fillText('Power left: ' + percentage.toFixed(2) + '%', 20, 80); ** done
 // display is responsive to screen sizes ** done
 // fixing the position of menu to be responsive and keep location related to canvas element ** done
