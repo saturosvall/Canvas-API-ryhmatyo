@@ -448,7 +448,7 @@ window.addEventListener('load', function () {
             this.createAlienPool(); // when a new Game is initiated it initiate alenPool elements
 
             this.score = 0;
-            this.winningScore = 100; // To set the minimum score to win
+            this.winningScore = 150; // To set the minimum score to win
             this.gameTime = 0;
             this.timeLimit = 30000; // To set the maximum time for mission success
 
