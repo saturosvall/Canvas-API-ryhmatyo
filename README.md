@@ -1,6 +1,6 @@
 # Guardian Of GaYa: The SISU Protocols
 
-### Tämä 2D-peli on toteutettu HTML:n, CSS:n ja JavaScriptin Canvas API:n avulla ROSAVALL Satu ja ROUISSI Yahya projektityönä.
+### Tämä 2D-peli on toteutettu HTML:n, CSS:n ja JavaScriptin Canvas API:n avulla projektityönä. Tekijöinä ROSVALL Satu ja ROUISSI Yahya.
 
 [Kokeile täältä](https://saturosvall.github.io/Canvas-API-ryhmatyo/)
 
@@ -48,7 +48,7 @@ Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselai
 
 Kloonaa arkisto ja avaa tiedosto `index.html` selaimellasi pelataksesi peliä. Voit muokata peliä muokkaamalla HTML-, CSS- ja JavaScript-tiedostoja tarpeen mukaan.
 
-## Osallistuva
+## Osallistuminen
 
 Jos haluat osallistua projektiin, voit vapaasti haarukoida arkiston ja lähettää pull requestin. Avustukset, vikailmoitukset ja palaute ovat tervetulleita!
 
@@ -67,11 +67,11 @@ Jos haluat osallistua projektiin, voit vapaasti haarukoida arkiston ja lähettä
 
 Tämä projekti EI käytä mitään kolmannen osapuolen kirjastoja tai työkaluja.
 
-Taustakuva ja planeettakuva on luotu käyttämällä DALL-E 3 AI:ta Microsoft Bingin Image Creator -ohjelmasta, ja tämän projektin kirjoittajat ovat tehneet lisäsuunnitelmia, muutoksia ja mukautuksia tähän projektiin.
+Taustakuva ja planeettakuva on luotu käyttämällä DALL-E 3 AI:ta Microsoft Bingin Image Creator -ohjelmaa, ja tämän projektin tekijät ovat tehneet lisäyksiä, muutoksia ja mukautuksia tähän projektiin.
 
 Silly, Sad ja Happy kuvakkeet ovat lisenssivapaita kuvakkeita, jotka on tehnyt Smashicons ja jotka on ladattu FLATICON-sivustolta.
-Silly, Sad ja Happy sprite-arkit on mukautettu ja suunniteltu sprite-arkkeina ROSVALL Satu.
-GoG-favicon ja GoG-Logo on mukautettu ja suunniteltu by ROSVALL Satu.
+Silly, Sad ja Happy sprite-arkit on mukautettu ja suunniteltu sprite-arkeiksi ROSVALL Satu toimesta.
+GoG-favicon ja GoG-Logo on mukautettu ja suunniteltu ROSVALL Satu toimesta.
 
 - disappear1: 'quaivat-Sound Effect' Pixabaysta
 - disappear2: 'lasergun-Sound Effect' Pixabaysta
