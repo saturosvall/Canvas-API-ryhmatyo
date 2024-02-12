@@ -783,7 +783,7 @@ window.addEventListener('load', function () {
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
-    // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
+    animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
 
@@ -800,7 +800,7 @@ window.addEventListener('load', function () {
 // Add the video intro and keyboards 't' for tarina maybe ??
 
 
-// Adding README 
+// Adding README
 // // Fixing the game story **  waiting for approval
 // Planet defencive capability is critically low against asteroids and spaceOrks & will totally collapse in (maxTime) decreasing percentage
 // SISU Protocols are in place to defend the planet & collect enough photons to power up & activate the shield
