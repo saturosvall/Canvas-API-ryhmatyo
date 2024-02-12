@@ -1,6 +1,7 @@
 # Guardian Of GaYa: The SISU Protocols
 
-Tämä 2D-peli on toteutettu HTML:n Canvas API:n, CSS:n ja JavaScriptin avulla ROSAVALL Satu ja ROUISSI Yahya projektityönä.
+### Tämä 2D-peli on toteutettu HTML:n, CSS:n ja JavaScriptin Canvas API:n avulla ROSAVALL Satu ja ROUISSI Yahya projektityönä.
+
 [Kokeile täältä](https://saturosvall.github.io/Canvas-API-ryhmatyo/)
 
 ## Sisällysluettelo
@@ -11,13 +12,13 @@ Tämä 2D-peli on toteutettu HTML:n Canvas API:n, CSS:n ja JavaScriptin avulla R
 - [Asennus](#asennus)
 - [Käyttö](#käyttö)
 - [Osallistuva](#osallistuva)
-- [Lisenssi](#lisenssi)
 - [Kiitokset](#kiitokset)
+- [Lisenssi](#lisenssi)
 - [Tekijät](#tekijät)
 
 ## Kuvaus
 
-GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeettaa ulkoavaruudesta tulevilta hyökkäyksiltä. Muukalaislajit himoitsevat planeetan fotoneja, jotka ovat planeetan suojakilven elinehto. Pelaajan tulee kerätä fotoneja tuhoamalla Avaruusörkkejä ja Asteroideja tai keräämällä Alienhahmoja. Keräämällä 100 fotonia planeetan suojakilpi aktivoituu ja planeetta on turvassa.
+GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeettaa ulkoavaruudesta tulevilta hyökkäyksiltä. Muukalaislajit himoitsevat planeetan fotoneja, jotka ovat planeetan suojakilven elinehto. Pelaajan tulee kerätä fotoneja tuhoamalla Avaruusörkkejä ja Asteroideja tai keräämällä Alienhahmoja. Keräämällä 150 fotonia planeetan suojakilpi aktivoituu ja planeetta on turvassa.
 
 ## Kuinka Pelata
 
@@ -28,7 +29,7 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 5. Kerää Alienhahmot klikkaamalla hiiren oikealla ---> + 5 fotonia
 6. Jos vahingossa tuhoat Alienhahmon painamalla hiiren vasenta --> - 10 fotonia
 7. Jos Alienhahmo ehtii osua planeettaan --> - 5 fotonia
-8. Kerää 100 fotonia aktivoidaksesi planeetan suojakilven.
+8. Kerää 150 fotonia aktivoidaksesi planeetan suojakilven.
 9. Välilyöntinäppäimellä voit pausata pelin ja saat ohjeet näppäinkomennoista.
 10. Painamalla h-näppäintä saat peliohjeet kesken pelin.
 
@@ -51,11 +52,16 @@ Kloonaa arkisto ja avaa tiedosto `index.html` selaimellasi pelataksesi peliä. V
 
 Jos haluat osallistua projektiin, voit vapaasti haarukoida arkiston ja lähettää pull requestin. Avustukset, vikailmoitukset ja palaute ovat tervetulleita!
 
-## Lisenssi
+## Kiitokset
 
-Tämä projekti on lisensoitu [MIT License](LISENSSI).
-
-Ellei toisin mainita, tämän arkiston koodi on toimitettu MIT-lisenssin ehdoilla.
+- Franks laboratorion Youtube-kanava
+- Chris Coursesin Youtube-kanava
+- Flaticon
+- DragonBones
+- Canvas Bootcampin Youtube-kanava
+- Spicy Youghurt vinkkejä ja niksejä canvas-animaatiosta
+- W3Schools
+- MDN Asiakirjat
 
 ### Kolmannen osapuolen kirjastot
 
@@ -76,16 +82,11 @@ Tekijät suunnittelivat yhdessä Canvan avulla pause- ja how to play sekä pelin
 
 Myös muut kuvat ja äänet ovat avoimen lähdekoodin tuotteita, joiden suunnittelussa ja mukauttamisessa on tehty yhteistyötä.
 
-## Kiitokset
+## Lisenssi
 
-- Franks laboratorion Youtube-kanava
-- Chris Coursesin Youtube-kanava
-- Flaticon
-- DragonBones
-- Canvas Bootcampin Youtube-kanava
-- Spicy Youghurt vinkkejä ja niksejä canvas-animaatiosta
-- W3Schools
-- MDN Asiakirjat
+Tämä projekti on lisensoitu [MIT License](LISENSSI).
+
+Ellei toisin mainita, tämän arkiston koodi on toimitettu MIT-lisenssin ehdoilla.
 
 ## Tekijät
 
