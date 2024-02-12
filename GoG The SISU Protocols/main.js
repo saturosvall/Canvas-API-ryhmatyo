@@ -399,17 +399,22 @@ window.addEventListener('load', function () {
                 context.textAlign = 'center';
                 let message1;
                 let message2;
+                let message3;
                 if (this.game.score >= this.game.winningScore) {
                     message1 = 'SISU Protocols Succeeded!';
                     message2 = 'The Planet is Safe and the shield is now active!!';
+                    message3 = 'Press R to restart          Press H to How to play';
                 } else {
                     message1 = 'Mission Failed!';
                     message2 = 'This planet is lost!';
+                    message3 = 'Press R to restart          Press H to How to play';
                 }
                 context.font = '100px ' + this.fontFamily;
                 context.fillText(message1, this.game.width * 0.5, this.game.height * 0.5 - 20);
                 context.font = '35px ' + this.fontFamily;
-                context.fillText(message2, this.game.width * 0.5, this.game.height * 0.5 + 20);
+                context.fillText(message2, this.game.width * 0.5, this.game.height * 0.5 + 25);
+                context.font = '25px ' + this.fontFamily;
+                context.fillText(message3, this.game.width * 0.5, this.game.height * 0.5 + 120);
             }
             context.restore();
         }
@@ -443,7 +448,7 @@ window.addEventListener('load', function () {
             this.createAlienPool(); // when a new Game is initiated it initiate alenPool elements
 
             this.score = 0;
-            this.winningScore = 80; // To set the minimum score to win
+            this.winningScore = 100; // To set the minimum score to win
             this.gameTime = 0;
             this.timeLimit = 30000; // To set the maximum time for mission success
 
@@ -801,12 +806,12 @@ window.addEventListener('load', function () {
 
 
 // Adding README
-// // Fixing the game story **  waiting for approval
+
+
+// // Fixing the game story **  waiting for approval ** done
 // Planet defencive capability is critically low against asteroids and spaceOrks & will totally collapse in (maxTime) decreasing percentage
 // SISU Protocols are in place to defend the planet & collect enough photons to power up & activate the shield
 // shield activates if enough photons/Gamma radiation is colleted to power up
-
-
 // Changing Timer to percentage until Planet loses its last defencive capability in IU time limit is maxTime in seconds: replace //  const formattedTime = (this.game.gameTime * 0.001).toFixed(1); with const percentage = ((this.game.gameTime * 0.001)/this.timeLimit)*100; and then replace in 374 this: context.fillText('Power left: ' + percentage.toFixed(2) + '%', 20, 80); ** done
 // display is responsive to screen sizes ** done
 // fixing the position of menu to be responsive and keep location related to canvas element ** done
