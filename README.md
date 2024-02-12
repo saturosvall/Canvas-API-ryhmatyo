@@ -57,25 +57,39 @@ Tämä projekti on lisensoitu [MIT License](LISENSSI).
 
 Ellei toisin mainita, tämän arkiston koodi on toimitettu MIT-lisenssin ehdoilla.
 
-### Third Party Libraries
+### Kolmannen osapuolen kirjastot
 
-Tässä projektissa saatetaan käyttää kolmannen osapuolen kirjastoja tai työkaluja, joilla on omat lisenssinsä. Tällaisten kirjastojen käyttöön sovelletaan niiden lisenssejä.
+Tämä projekti EI käytä mitään kolmannen osapuolen kirjastoja tai työkaluja.
+
+Taustakuva ja planeettakuva on luotu käyttämällä DALL-E 3 AI:ta Microsoft Bingin Image Creator -ohjelmasta, ja tämän projektin kirjoittajat ovat tehneet lisäsuunnitelmia, muutoksia ja mukautuksia tähän projektiin.
+
+Silly, Sad ja Happy kuvakkeet ovat lisenssivapaita kuvakkeita, jotka on tehnyt Smashicons ja jotka on ladattu FLATICON-sivustolta.
+Silly, Sad ja Happy sprite-arkit on mukautettu ja suunniteltu sprite-arkkeina ROSVALL Satu.
+GoG-favicon ja GoG-Logo on mukautettu ja suunniteltu by ROSVALL Satu.
+
+- disappear1: 'quaivat-Sound Effect' Pixabaysta
+- disappear2: 'lasergun-Sound Effect' Pixabaysta
+- disappear3: 'space-insect-Sound Effect' Pixabaysta
+- monster-roar-6985: Pixabaysta
+
+Tekijät suunnittelivat yhdessä Canvan avulla pause- ja how to play sekä pelin tarinavideon (music by Two Steps From Hell, title: Protectors Of The Earth).
+
+Myös muut kuvat ja äänet ovat avoimen lähdekoodin tuotteita, joiden suunnittelussa ja mukauttamisessa on tehty yhteistyötä.
 
 ## Kiitokset
 
-- Franks laboratory
-- Chris Courses
-- Traversy Media
-- Flaticon: Icon Pack: Monster Emojis
+- Franks laboratorion Youtube-kanava
+- Chris Coursesin Youtube-kanava
+- Flaticon
 - DragonBones
-- Canvas Bootcamp
-- Spicy Youghurt
+- Canvas Bootcampin Youtube-kanava
+- Spicy Youghurt vinkkejä ja niksejä canvas-animaatiosta
 - W3Schools
-- Mozilla Developer Network
+- MDN Asiakirjat
 
 ## Tekijät
 
-[Yahya Rouissi](https://github.com/Yaro101)
-[Satu Rosvall](https://github.com/saturosvall)
+- [Yahya Rouissi](https://github.com/Yaro101)
+- [Satu Rosvall](https://github.com/saturosvall)
 
 &copy; 2024 Yahya Rouissi & Satu Rosvall #413 JavaScript Canvas API #658
