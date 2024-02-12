@@ -41,7 +41,7 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 
 ## Asennus
 
-Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselaimella tai [Kokeile täältä](https://saturosvall.github.io/Canvas-API-ryhmatyo/)
+Asennusta ei tarvita. Avaa tiedosto `https://......` vain nykyaikaisella verkkoselaimella.
 
 ## Käyttö
 
