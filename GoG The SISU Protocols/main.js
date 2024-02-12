@@ -45,7 +45,6 @@ window.addEventListener('load', function () {
             this.angle = 0;
             this.va = Math.random() * 0.02 - 0.01;
             this.asteroidDescription = '  +1/Game Over';
-
         }
         // Method to draw the asteroid
         draw(context) {
@@ -61,7 +60,6 @@ window.addEventListener('load', function () {
                     context.font = '25px Bangers';
                     context.fillText(this.asteroidDescription, this.x - this.radius, this.y - this.radius);
                 }
-
                 // The asteroid 
                 context.translate(this.x, this.y);
                 context.rotate(this.angle);
@@ -117,8 +115,6 @@ window.addEventListener('load', function () {
 
             this.alienDescription = '±5/Collectible'; // Text for debug mode
             this.mouvementAngle = 0; // initiating the mouvemebt angle for alien
-
-
         }
         // Method to draw the object
         draw(context) {
@@ -357,6 +353,8 @@ window.addEventListener('load', function () {
             this.fontSize = 35;
             this.fontFamily = 'Bangers';
             this.color = 'white';
+            this.pauseImage = document.getElementById('pauseImage');
+            this.helpImage = document.getElementById('helpImage');
         }
         draw(context) {
             context.save();
@@ -365,11 +363,37 @@ window.addEventListener('load', function () {
             context.shadowOffsetY = 2;
             context.shadowColor = 'black';
             context.font = this.fontSize + 'px ' + this.fontFamily;
-            // Score
-            context.fillText('Score: ' + this.game.score, 30, 40);
-            // Timer
-            const formattedTime = (this.game.gameTime * 0.001).toFixed(1); // toFixed method formats a number using fixed point notation (after decimal point)
-            context.fillText('Timer: ' + formattedTime, 20, 80);
+
+            if (!this.game.debug) {
+                // Photons Energy (ʏ) / Defensive power remaining
+                // Photons Energy
+                context.fillText('Photons: ' + this.game.score, 30, 40);
+                // Remaining defensive power
+                const remainingTime = this.game.timeLimit - this.game.gameTime;
+                const percentage = ((remainingTime / this.game.timeLimit) * 100).toFixed(0); // toFixed method formats a number using fixed point notation (after decimal point)
+                context.fillText('Defence: ' + percentage + ' %', 20, 80);
+            } else {
+                // Show score and timer in debug mode
+                // Score
+                context.fillText('Score: ' + this.game.score, 30, 40);
+                // Timer
+                const formattedTime = (this.game.gameTime * 0.001).toFixed(1); // toFixed method formats a number using fixed point notation (after decimal point)
+                context.fillText('Timer: ' + formattedTime, 20, 80);
+            }
+            // Pause menu
+            if (this.game.help) {
+                // conditions for menu images
+                this.game.pause = true;
+                this.helpImage.classList.remove('hidden');
+                this.pauseImage.classList.add('hidden');
+            }
+            else if (this.game.pause && !this.game.help) {
+                this.pauseImage.classList.remove('hidden');
+                this.helpImage.classList.add('hidden');
+            } else {
+                this.pauseImage.classList.add('hidden');
+                this.helpImage.classList.add('hidden');
+            }
             // Game over message
             if (this.game.gameOver) {
                 context.textAlign = 'center';
@@ -455,6 +479,7 @@ window.addEventListener('load', function () {
 
             this.debug = false;
             this.pause = false;
+            this.help = false;
 
             window.addEventListener('keyup', e => {
                 // Event for debug mode
@@ -470,6 +495,10 @@ window.addEventListener('load', function () {
                 // Event for game restart
                 else if (e.key === 'r') {
                     this.restartGame();
+                }
+                // Event for how to play
+                else if (e.key === 'h') {
+                    this.gameHelp();
                 }
             });
 
@@ -518,7 +547,6 @@ window.addEventListener('load', function () {
                         }
                     })
                 }
-
             });
             window.addEventListener('contextmenu', e => {
                 // Handle the right mouse button click
@@ -541,6 +569,10 @@ window.addEventListener('load', function () {
                     })
                 }
             });
+        }
+        // Toggle How to play
+        gameHelp() {
+            this.help = !this.help;
         }
         // method to toggle debug mode
         toggleDebug() {
@@ -662,7 +694,6 @@ window.addEventListener('load', function () {
         render(context, deltaTime) {
             // Drawing the planet
             this.planet.draw(context);
-
             // create asteroids periodically if not game over
             if (this.asteroidTimer > this.asteroidInterval && !this.gameOver) {
                 // Add new asteriod from pool
@@ -721,9 +752,11 @@ window.addEventListener('load', function () {
                 // condition for updating the element
                 if (!this.pause) smokeExplosion.update(deltaTime);
             });
-
             // Conditions for gameTime update 
             if (!this.gameOver && !this.pause) this.gameTime += deltaTime;
+
+            // *** The game logic for score +- and gameOver (collision with planet) for Asteroids, Aliens and SpaceOrks
+
             // Condition for winning and losing
             if (this.score >= this.winningScore) {
                 // Where should the Planet border expands (we could call Planet shield activated when winning the game)
@@ -735,14 +768,9 @@ window.addEventListener('load', function () {
                 this.planet.sphereColor = 'hsla(12, 80%, 53%, 0.185)';
                 this.gameOver = true;
             }
-
-            // *** The game logic for score +- and gameOver (collision with planet) for Asteroids, Aliens and SpaceOrks
-
             // Drawing the UI
             this.ui.draw(context, this.score, this.gameTime, this.gameOver, this.winningScore, this.width, this.height);
-
         }
-
     }
 
     const game = new Game(canvas.width, canvas.height);
@@ -755,7 +783,7 @@ window.addEventListener('load', function () {
         game.render(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
-    animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
+    // animate(0); // setting the first timeStamp to 0 avoidin the NaN for the first loop
 });
 
 
@@ -765,18 +793,29 @@ window.addEventListener('load', function () {
 // Game fully compatible with touchscreens, joystick-like Player responsive to touch up and down and two transparent water drop-like action buttons (fire & collect), and controls also (Start/restart/pause/quit/debug)??
 // Cleaning up the code and fixing the game logic we left place in comments
 // The planet border : maybe lives for planet ???
-
-
-// Maybe a gradiant color for the planet border for better look
 // Adding Player/Robot
 // Adding a circle/shield that last for 5 for robot if hitting 10 or 15 asteroids for example (form like atmosphere of planet but full circle around thr robot, color golden radian transparent for example)
 // Adding sprite sheet for destroyed Robot when lose all lives (maybe the mechanique debree sprite sheet from project 1)
 
-// image for pause event
-// image for how to play
-// event for keyboard 'h'
+// Add the video intro and keyboards 't' for tarina maybe ??
 
 
+// Adding README 
+// // Fixing the game story **  waiting for approval
+// Planet defencive capability is critically low against asteroids and spaceOrks & will totally collapse in (maxTime) decreasing percentage
+// SISU Protocols are in place to defend the planet & collect enough photons to power up & activate the shield
+// shield activates if enough photons/Gamma radiation is colleted to power up
+
+
+// Changing Timer to percentage until Planet loses its last defencive capability in IU time limit is maxTime in seconds: replace //  const formattedTime = (this.game.gameTime * 0.001).toFixed(1); with const percentage = ((this.game.gameTime * 0.001)/this.timeLimit)*100; and then replace in 374 this: context.fillText('Power left: ' + percentage.toFixed(2) + '%', 20, 80); ** done
+// display is responsive to screen sizes ** done
+// fixing the position of menu to be responsive and keep location related to canvas element ** done
+// fixing the how to play menu to fit with the game story ** done
+// preparing a video for game story EN/FIN ** done
+// adding style to canvas for polish look ** done
+// Adding Press 'r' to restart & Press 'h' to get how to play menu to game over messages ** done
+// Maybe a gradiant color for the planet border for better look ** gradian doesn't work on canvas
+// Pause menu *** to be checked BUG ** solved
 // Bug related to restart mode: cause/solution --> the state of the Planet border isn't re-initialized to original so it is still expanded!! **  found solved
 // Adding restart mode using 'r' (maybe same technique as debug mode using 'r' or 's') ** done
 // Add a favicon to the html ** done
