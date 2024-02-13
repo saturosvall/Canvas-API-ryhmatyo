@@ -315,7 +315,7 @@ window.addEventListener('load', function () {
             this.spriteWidth = 79.5;
             this.spriteHeight = 80;
             this.frameY = Math.floor(Math.random() * 4);
-            this.maxFrame = 7;
+            this.maxFrame = 5;
             this.sound = this.game.disappearSounds[Math.floor(Math.random() * this.game.disappearSounds.length)];
         }
         // Overriding start method
@@ -335,7 +335,7 @@ window.addEventListener('load', function () {
             this.spriteWidth = 200;
             this.spriteHeight = 200;
             this.frameY = 0;
-            this.maxFrame = 9;
+            this.maxFrame = 7;
             this.sound = document.getElementById('monsterRoar');
         }
         // Overriding start method
