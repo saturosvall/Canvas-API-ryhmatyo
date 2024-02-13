@@ -11,7 +11,7 @@
 - [Pelin Ominaisuudet](#pelin-ominaisuudet)
 - [Asennus](#asennus)
 - [Käyttö](#käyttö)
-- [Osallistuva](#osallistuva)
+- [Osallistuminen](#osallistuminen)
 - [Kiitokset](#kiitokset)
 - [Lisenssi](#lisenssi)
 - [Tekijät](#tekijät)
@@ -30,7 +30,7 @@ GoG: The SISU Protocols on peli, jossa pelaajan tehtävänä on suojella planeet
 6. Jos vahingossa tuhoat Alienhahmon painamalla hiiren vasenta --> - 10 fotonia
 7. Jos Alienhahmo ehtii osua planeettaan --> - 5 fotonia
 8. Kerää 150 fotonia aktivoidaksesi planeetan suojakilven.
-9. Välilyöntinäppäimellä voit pausata pelin ja saat ohjeet näppäinkomennoista.
+9. Välilyöntinäppäimellä voit pysäyttää pelin ja saat ohjeet muista näppäinkomennoista.
 10. Painamalla h-näppäintä saat peliohjeet kesken pelin.
 
 ## Pelin Ominaisuudet
@@ -46,7 +46,7 @@ Asennusta ei tarvita. Avaa tiedosto `index.html` vain nykyaikaisella verkkoselai
 
 ## Käyttö
 
-Kloonaa arkisto ja avaa tiedosto `index.html` selaimellasi pelataksesi peliä. Voit muokata peliä muokkaamalla HTML-, CSS- ja JavaScript-tiedostoja tarpeen mukaan.
+Kloonaa repository ja avaa tiedosto `index.html` selaimellasi pelataksesi peliä. Voit muokata peliä muokkaamalla HTML-, CSS- ja JavaScript-tiedostoja tarpeen mukaan.
 
 ## Osallistuminen
 
